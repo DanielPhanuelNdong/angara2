@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
+import 'package:get/get.dart';
+import 'package:wiso_cash/acceuil/index.dart';
 //import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
 class Scanner_code extends StatefulWidget {
@@ -25,6 +27,14 @@ class _Scanner_codeState extends State<Scanner_code> {
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        leading: IconButton(
+            onPressed: () {
+              setState(() {
+                _BarcodeResult = '';
+              });
+              Get.off(() => const acceuil() );
+            },
+            icon: const Icon(Icons.arrow_back)),
       ),
       body: Form(
         key: keyform,
