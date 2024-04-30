@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wiso_cash/acceuil/Navigations/PagesIcones/composant_payer/index.dart';
 import 'package:wiso_cash/acceuil/index.dart';
 
 class Plage_Accueil extends StatefulWidget {
@@ -15,8 +14,8 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
   Widget build(BuildContext context) {
     double screen_width = MediaQuery.of(context).size.width;
     double screen_height = MediaQuery.of(context).size.height;
-    double icontaille = 35;
-    double taille = 70;
+    double icontaille = screen_width*.08;
+    double taille = screen_width*.14;
     return Column(
       children: [
         Stack(
@@ -106,7 +105,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
           height: 20,
         ),
 
-        //les differents icones
+        //les differentes icones
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(

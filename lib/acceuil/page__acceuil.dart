@@ -54,7 +54,7 @@ class _acceuilState extends State<acceuil> {
           ]
         ),
         child: Padding(
-          padding: const EdgeInsets.all(20.0),
+          padding: const EdgeInsets.all(15.0),
           child: GNav(
             onTabChange: (index) {
               setState(() {
@@ -71,16 +71,16 @@ class _acceuilState extends State<acceuil> {
               GButton(
                 icon: Icons.home,
                 text: 'Accueil',
-                iconSize: 35,
+                iconSize: 20,
                 ),
                 GButton(
                 icon: Icons.history_edu_outlined,
-                iconSize: 35,
+                iconSize: 20,
                 text: 'Historiques',
                 ),
                 GButton(
                 icon: Icons.settings,
-                iconSize: 35,
+                iconSize: 20,
                 text: 'Réglages',
                 )
             ],

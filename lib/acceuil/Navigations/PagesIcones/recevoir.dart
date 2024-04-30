@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:share_plus/share_plus.dart';
 
 class Recevoir extends StatefulWidget {
   const Recevoir({super.key});
@@ -13,10 +15,17 @@ class _RecevoirState extends State<Recevoir> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Recevoir un paiement', style: TextStyle(fontWeight: FontWeight.bold),),
-        actions: const [
+        actions: [
           Padding(
-            padding: EdgeInsets.only(right: 20),
-            child: IconButton(onPressed: null, icon: Icon(Icons.share)),
+            padding: const EdgeInsets.only(right: 20),
+            child: IconButton(
+              onPressed: () async {
+                final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                if (image == null) return;
+
+                await Share.shareXFiles([XFile('images/scan.jpg')], text: 'mon lien ici',);
+              },
+              icon: const Icon(Icons.share)),
           )
         ],
       ),
