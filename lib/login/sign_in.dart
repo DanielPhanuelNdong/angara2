@@ -33,7 +33,7 @@ class _Sign_inState extends State<Sign_in> {
                   ),
 
                   //connexion avec Facebook ou Google
-                  const Facebook_Google(),
+                  //const Facebook_Google(),
 
                   //sizedbox
                   const SizedBox(
@@ -53,15 +53,19 @@ class _Sign_inState extends State<Sign_in> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     child: TextFormField(
                       decoration: InputDecoration(
-                        labelStyle:
-                            TextStyle(color: Theme.of(context).primaryColor,),
+                        labelStyle: TextStyle(
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.3),
+                            fontWeight: FontWeight.bold),
                         focusColor: Theme.of(context).primaryColor,
                         border: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,)),
+                          color: Theme.of(context).primaryColor,
+                        )),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,)),
+                          color: Theme.of(context).primaryColor,
+                        )),
                         labelText: 'Entrez votre adresse email',
                       ),
                       validator: (value) {
@@ -85,14 +89,18 @@ class _Sign_inState extends State<Sign_in> {
                       obscureText: _obscure,
                       decoration: InputDecoration(
                         labelStyle: TextStyle(
-                            color: Theme.of(context).primaryColor,),
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.3),
+                            fontWeight: FontWeight.bold),
                         focusColor: Theme.of(context).primaryColor,
                         border: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,)),
+                          color: Theme.of(context).primaryColor,
+                        )),
                         focusedBorder: UnderlineInputBorder(
                             borderSide: BorderSide(
-                                color: Theme.of(context).primaryColor,)),
+                          color: Theme.of(context).primaryColor,
+                        )),
                         labelText: 'Entrez votre mot de Passe',
                         suffixIcon: IconButton(
                           onPressed: () {
@@ -130,7 +138,8 @@ class _Sign_inState extends State<Sign_in> {
                         },
                         child: Text('Mot de passe oublié ?',
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor,))),
+                              color: Theme.of(context).primaryColor,
+                            ))),
                   ),
 
                   //sizedbox
@@ -142,14 +151,15 @@ class _Sign_inState extends State<Sign_in> {
                   InkWell(
                     onTap: () {
                       if (formKey.currentState!.validate()) {
-                        Get.offAll(() => const acceuil(),
-                        transition: Transition.size,
-                        duration: Durations.medium2,
+                        Get.offAll(
+                          () => const acceuil(),
+                          transition: Transition.size,
+                          duration: Durations.medium2,
                         );
                       }
                     },
                     child: Container(
-                      height: 60,
+                      height: 42,
                       width: screen_width * .88,
                       alignment: Alignment.center,
                       decoration: BoxDecoration(
@@ -198,7 +208,8 @@ class _Sign_inState extends State<Sign_in> {
                           child: Text(
                             'S\'inscrire',
                             style: TextStyle(
-                                color: Theme.of(context).primaryColor,),
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                         )
                       ],

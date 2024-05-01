@@ -34,7 +34,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
         textAlign: TextAlign.center,
         'vueillez renseigner ci-dessous les informations d\'envoie',
         style: TextStyle(
-            fontSize: 20,
+            fontSize: 18,
             color: Color.fromARGB(255, 69, 69, 69),
             fontWeight: FontWeight.w400),
       ),
@@ -55,8 +55,8 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -81,7 +81,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer montant
@@ -91,8 +91,8 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -116,7 +116,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer taxe
@@ -126,8 +126,8 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -151,7 +151,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer Total
@@ -161,8 +161,8 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -186,7 +186,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer Pays
@@ -198,8 +198,8 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -224,7 +224,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer taxe change
@@ -234,8 +234,8 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -259,7 +259,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
 
             //telechargement fichier
@@ -276,7 +276,7 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
                 }
               },
               child: Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(

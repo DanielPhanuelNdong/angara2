@@ -1,7 +1,9 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:wiso_cash/acceuil/index.dart';
 
 class Photo_CNI_Passeport extends StatefulWidget {
   const Photo_CNI_Passeport({super.key});
@@ -16,6 +18,8 @@ class _Photo_CNI_PasseportState extends State<Photo_CNI_Passeport> {
 
   @override
   Widget build(BuildContext context) {
+
+    double screen_width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
         title: const Text(
@@ -39,7 +43,7 @@ class _Photo_CNI_PasseportState extends State<Photo_CNI_Passeport> {
                 textAlign: TextAlign.center,
                 'vueillez importer la photo des deux faces CNI ou Passeport du bénéficiaire',
                 style: TextStyle(
-                    fontSize: 20,
+                    fontSize: 16,
                     color: Color.fromARGB(255, 69, 69, 69),
                     fontWeight: FontWeight.w400),
               ),
@@ -145,6 +149,47 @@ class _Photo_CNI_PasseportState extends State<Photo_CNI_Passeport> {
                   style: TextStyle(color: Color.fromARGB(255, 186, 185, 185)),
                 ),
               ),
+
+              //sizedbox
+              const SizedBox(
+                height: 40,
+              ),
+
+              //bouton de confirmation
+            InkWell(
+              onTap: () {
+                
+                  Get.offAll(
+                    () => const acceuil(),
+                    transition: Transition.size,
+                    duration: Durations.medium2,
+                  );
+                
+              },
+              child: Container(
+                height: 42,
+                width: screen_width * .88,
+                alignment: Alignment.center,
+                decoration: BoxDecoration(
+                    color: Theme.of(context).primaryColor,
+                    borderRadius: const BorderRadius.all(Radius.circular(12)),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Theme.of(context).primaryColor,
+                        blurRadius: 2,
+                        offset: const Offset(0, 4),
+                        spreadRadius: 1,
+                      )
+                    ]),
+                child: const Text(
+                  'Confirmer',
+                  style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 20),
+                ),
+              ),
+            ),
             ],
           ),
         ),

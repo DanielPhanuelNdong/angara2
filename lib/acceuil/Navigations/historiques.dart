@@ -25,7 +25,7 @@ class _historiquesState extends State<historiques> {
                 child: Text(
                   'Historiques',
                   style: TextStyle(
-                    fontSize: 30,
+                    fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Theme.of(context).primaryColor,
                   ),

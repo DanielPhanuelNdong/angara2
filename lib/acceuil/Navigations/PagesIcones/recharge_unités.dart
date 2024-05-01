@@ -9,29 +9,25 @@ class recharge_unites extends StatefulWidget {
   State<recharge_unites> createState() => _recharge_unitesState();
 }
 
-  final List<String> Reseaux = [
-    'MTN',
-    'Orange',
-    'Camtel',
-    'Nexttel'
-  ];
+final List<String> Reseaux = ['MTN', 'Orange', 'Camtel', 'Nexttel'];
 
-  final formKey3 = GlobalKey<FormState>();
-  //IconData vises = Icons.visibility_off;
-  //bool _obscure = true;
+final formKey3 = GlobalKey<FormState>();
+//IconData vises = Icons.visibility_off;
+//bool _obscure = true;
 
-  String current_options2 = Reseaux[0];
-  TextEditingController controle2223 = TextEditingController();
-
+String current_options2 = Reseaux[0];
+TextEditingController controle2223 = TextEditingController();
 
 class _recharge_unitesState extends State<recharge_unites> {
   @override
   Widget build(BuildContext context) {
     double screen_width = MediaQuery.of(context).size.width;
+    double screen_height = MediaQuery.of(context).size.height;
 
     var children = [
-      const SizedBox(
-        height: 60,
+      //sizebox
+      SizedBox(
+        height: screen_height * .1,
       ),
 
       //modes utilisés
@@ -50,7 +46,7 @@ class _recharge_unitesState extends State<recharge_unites> {
               item,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             activeColor: Theme.of(context).primaryColor,
@@ -60,7 +56,7 @@ class _recharge_unitesState extends State<recharge_unites> {
 
       //sizedbox
       const SizedBox(
-        height: 40,
+        height: 20,
       ),
 
       //form
@@ -76,8 +72,8 @@ class _recharge_unitesState extends State<recharge_unites> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -91,8 +87,7 @@ class _recharge_unitesState extends State<recharge_unites> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty ||
-                      !RegExp(r'^[a-z A-Z 0-9]{4,15}$')
-                          .hasMatch(value)) {
+                      !RegExp(r'^[a-z A-Z 0-9]{4,15}$').hasMatch(value)) {
                     return 'Veuillez entrer un numero correct';
                   } else {
                     return null;
@@ -100,10 +95,10 @@ class _recharge_unitesState extends State<recharge_unites> {
                 },
               ),
             ),
-            
+
             //sizebox
             const SizedBox(
-              height: 70,
+              height: 40,
             ),
 
             //bouton de confirmation
@@ -134,7 +129,7 @@ class _recharge_unitesState extends State<recharge_unites> {
                         ),
                       ),
                       actions: <Widget>[
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {
                             Get.offAll(() => const Recharge_mode(),
                                 transition: Transition.fade,
@@ -164,7 +159,7 @@ class _recharge_unitesState extends State<recharge_unites> {
                 }
               },
               child: Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -220,10 +215,7 @@ class _recharge_unitesState extends State<recharge_unites> {
   }
 }
 
-
 //mode de recharge.................................................................................................
-
-
 
 class Recharge_mode extends StatefulWidget {
   const Recharge_mode({super.key});
@@ -232,28 +224,24 @@ class Recharge_mode extends StatefulWidget {
   State<Recharge_mode> createState() => _Recharge_modeState();
 }
 
-
 TextEditingController controle222 = TextEditingController();
 TextEditingController controles222 = TextEditingController();
 //String control2 = controle.text;
 
-  final List<String> mode_transfert222 = [
-    'Mobile Money',
-    'Wiso Cash',
-    'Mobile Wallet'
-  ];
+final List<String> mode_transfert222 = [
+  'Mobile Money',
+  'Wiso Cash',
+  'Mobile Wallet'
+];
 
-  final formKey232 = GlobalKey<FormState>();
-  final formKey222 = GlobalKey<FormState>();
+final formKey232 = GlobalKey<FormState>();
+final formKey222 = GlobalKey<FormState>();
 
-  String current_option222 = mode_transfert222[0];
-
+String current_option222 = mode_transfert222[0];
 
 class _Recharge_modeState extends State<Recharge_mode> {
   @override
   Widget build(BuildContext context) {
-    
-    
     double screen_width = MediaQuery.of(context).size.width;
 
     var children = [
@@ -262,26 +250,35 @@ class _Recharge_modeState extends State<Recharge_mode> {
       ),
 
       //modes utilisés
-      Column(
-        children: mode_transfert222.map((item) {
-          return RadioListTile(
-            value: item,
-            groupValue: current_option222,
-            onChanged: (Value) {
-              setState(() {
-                current_option222 = Value!;
-              });
-            },
-            title: Text(
-              item,
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            activeColor: Theme.of(context).primaryColor,
-          );
-        }).toList(),
+      Container(
+        height: 100,
+        width: screen_width,
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor.withOpacity(.03),
+        ),
+        child: Row(
+          children: mode_transfert222.map((item) {
+            return Expanded(
+              child: RadioListTile(
+                value: item,
+                groupValue: current_option222,
+                onChanged: (Value) {
+                  setState(() {
+                    current_option222 = Value!;
+                  });
+                },
+                title: Text(
+                  item,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                ),
+                activeColor: Theme.of(context).primaryColor,
+              ),
+            );
+          }).toList(),
+        ),
       ),
 
       //sizebox
@@ -303,8 +300,8 @@ class _Recharge_modeState extends State<Recharge_mode> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -342,8 +339,8 @@ class _Recharge_modeState extends State<Recharge_mode> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -383,7 +380,8 @@ class _Recharge_modeState extends State<Recharge_mode> {
                       title: Text(
                         'Veuillez Confirmer',
                         style: TextStyle(
-                            color: Theme.of(context).primaryColor,
+                            color:
+                                Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold),
                       ),
                       content: Form(
@@ -421,8 +419,10 @@ class _Recharge_modeState extends State<Recharge_mode> {
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     labelStyle: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                    ),
+                                        color: Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(.3),
+                                        fontWeight: FontWeight.bold),
                                     focusColor: Theme.of(context).primaryColor,
                                     border: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -450,7 +450,7 @@ class _Recharge_modeState extends State<Recharge_mode> {
                         ),
                       ),
                       actions: <Widget>[
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {
                             if (formKey222.currentState!.validate()) {
                               Get.offAll(() => const acceuil(),
@@ -491,7 +491,7 @@ class _Recharge_modeState extends State<Recharge_mode> {
                 }
               },
               child: Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(

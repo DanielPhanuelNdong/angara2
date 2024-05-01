@@ -49,7 +49,7 @@ class _ResetState extends State<Reset> {
                   'Réinitialisation du mot de passe',
                   style: TextStyle(
                       color: Theme.of(context).primaryColor,
-                      fontSize: 30,
+                      fontSize: 23,
                       fontWeight: FontWeight.bold),
                 ),
 
@@ -79,7 +79,8 @@ class _ResetState extends State<Reset> {
                     obscureText: _obscure,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,),
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                       focusColor: Theme.of(context).primaryColor,
                       border: UnderlineInputBorder(
                           borderSide: BorderSide(
@@ -123,7 +124,8 @@ class _ResetState extends State<Reset> {
                     obscureText: _obscure,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,),
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                       focusColor: Theme.of(context).primaryColor,
                       border: UnderlineInputBorder(
                           borderSide: BorderSide(
@@ -190,7 +192,7 @@ class _ResetState extends State<Reset> {
                     }
                   },
                   child: Container(
-                    height: 60,
+                    height: 42,
                     width: screen_width * .88,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(

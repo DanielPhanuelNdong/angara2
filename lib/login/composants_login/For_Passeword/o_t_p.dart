@@ -37,7 +37,7 @@ class _OtpState extends State<Otp> {
                   'Verification OTP',
                   style: TextStyle(
                       color: Theme.of(context).primaryColor,
-                      fontSize: 30,
+                      fontSize: 23,
                       fontWeight: FontWeight.bold),
                 ),
 
@@ -70,7 +70,7 @@ class _OtpState extends State<Otp> {
                         duration: const Duration(seconds: 1));
                   },
                   child: Container(
-                    height: 60,
+                    height: 42,
                     width: screen_width * .88,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(

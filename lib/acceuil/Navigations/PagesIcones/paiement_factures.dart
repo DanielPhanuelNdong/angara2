@@ -42,7 +42,7 @@ class _Paiement_factureState extends State<Paiement_facture> {
               item,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             activeColor: Theme.of(context).primaryColor,
@@ -67,8 +67,8 @@ class _Paiement_factureState extends State<Paiement_facture> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -121,7 +121,7 @@ class _Paiement_factureState extends State<Paiement_facture> {
                         ),
                       ),
                       actions: <Widget>[
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {
                             Get.offAll(() => const mode_paiement_facture(),
                                 transition: Transition.fade,
@@ -154,7 +154,7 @@ class _Paiement_factureState extends State<Paiement_facture> {
 
                   //confirmation
                   Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -236,38 +236,50 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
   @override
   Widget build(BuildContext context) {
     double screen_width = MediaQuery.of(context).size.width;
+    double screen_height = MediaQuery.of(context).size.height;
 
     var children = [
-      const SizedBox(
-        height: 60,
+      //sizebox
+      SizedBox(
+        height: screen_height * .15,
       ),
 
+
       //modes utilisés
-      Column(
-        children: mode_transfert22.map((item) {
-          return RadioListTile(
-            value: item,
-            groupValue: current_option22,
-            onChanged: (Value) {
-              setState(() {
-                current_option22 = Value!;
-              });
-            },
-            title: Text(
-              item,
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            activeColor: Theme.of(context).primaryColor,
-          );
-        }).toList(),
+      Container(
+        height: 100,
+        width: screen_width,
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor.withOpacity(.03),
+        ),
+        child: Row(
+          children: mode_transfert22.map((item) {
+            return Expanded(
+              child: RadioListTile(
+                value: item,
+                groupValue: current_option22,
+                onChanged: (Value) {
+                  setState(() {
+                    current_option22 = Value!;
+                  });
+                },
+                title: Text(
+                  item,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                ),
+                activeColor: Theme.of(context).primaryColor,
+              ),
+            );
+          }).toList(),
+        ),
       ),
 
       //sizebox
       const SizedBox(
-        height: 40,
+        height: 10,
       ),
 
       //form
@@ -284,8 +296,8 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -323,8 +335,8 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -402,8 +414,10 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     labelStyle: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                    ),
+                                        color: Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(.3),
+                                        fontWeight: FontWeight.bold),
                                     focusColor: Theme.of(context).primaryColor,
                                     border: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -431,7 +445,7 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
                         ),
                       ),
                       actions: <Widget>[
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {
                             if (formKey22.currentState!.validate()) {
                               Get.offAll(() => const acceuil(),
@@ -472,7 +486,7 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
                 }
               },
               child: Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(

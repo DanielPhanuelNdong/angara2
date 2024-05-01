@@ -14,54 +14,62 @@ TextEditingController controles1 = TextEditingController();
 String control3 = controle1.text;
 
 final List<String> mode_transferts = [
-    'Mobile Money',
-    'Wiso Cash',
-    'Mobile Wallet'
-  ];
+  'Mobile Money',
+  'Wiso\n Cash',
+  'Mobile\n Wallet'
+];
 
-  final formKeys = GlobalKey<FormState>();
-  final formKey2s = GlobalKey<FormState>();
+final formKeys = GlobalKey<FormState>();
+final formKey2s = GlobalKey<FormState>();
 
-  String current_option2s = mode_transferts[0];
+String current_option2s = mode_transferts[0];
 
 class _PayerState extends State<Payer> {
   @override
   Widget build(BuildContext context) {
-    
     double screen_width = MediaQuery.of(context).size.width;
+    double screen_height = MediaQuery.of(context).size.height;
 
     var children = [
-      const SizedBox(
-        height: 60,
+      //sizebox
+      SizedBox(
+        height: screen_height * .15,
       ),
 
-      //modes utilisés
-      Column(
-        children: mode_transferts.map((item) {
-          return RadioListTile(
-            value: item,
-            groupValue: current_option2s,
-            onChanged: (Value) {
-              setState(() {
-                current_option2s = Value!;
-                print(current_option2s);
-              });
-            },
-            title: Text(
-              item,
-              style: TextStyle(
-                  color: Theme.of(context).primaryColor,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold),
-            ),
-            activeColor: Theme.of(context).primaryColor,
-          );
-        }).toList(),
+      Container(
+        height: 100,
+        width: screen_width,
+        decoration: BoxDecoration(
+          color: Theme.of(context).primaryColor.withOpacity(.03),
+        ),
+        child: Row(
+          children: mode_transferts.map((item) {
+            return Expanded(
+              child: RadioListTile(
+                value: item,
+                groupValue: current_option2s,
+                onChanged: (Value) {
+                  setState(() {
+                    current_option2s = Value!;
+                  });
+                },
+                title: Text(
+                  item,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
+                ),
+                activeColor: Theme.of(context).primaryColor,
+              ),
+            );
+          }).toList(),
+        ),
       ),
 
       //sizebox
       const SizedBox(
-        height: 40,
+        height: 10,
       ),
 
       //form
@@ -78,8 +86,8 @@ class _PayerState extends State<Payer> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -117,8 +125,8 @@ class _PayerState extends State<Payer> {
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -196,8 +204,10 @@ class _PayerState extends State<Payer> {
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
                                     labelStyle: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                    ),
+                                        color: Theme.of(context)
+                                            .primaryColor
+                                            .withOpacity(.3),
+                                        fontWeight: FontWeight.bold),
                                     focusColor: Theme.of(context).primaryColor,
                                     border: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -225,7 +235,7 @@ class _PayerState extends State<Payer> {
                         ),
                       ),
                       actions: <Widget>[
-                        TextButton(
+                        ElevatedButton(
                           onPressed: () {
                             if (formKey2s.currentState!.validate()) {
                               Get.offAll(() => const acceuil(),
@@ -266,7 +276,7 @@ class _PayerState extends State<Payer> {
                 }
               },
               child: Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(
@@ -300,16 +310,6 @@ class _PayerState extends State<Payer> {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
-        leading: IconButton(
-            onPressed: () {
-              Get.back();
-              setState(() {
-                controle1.text = '';
-                controles1.text = '';
-                current_option2s = mode_transferts[0];
-              });
-            },
-            icon: const Icon(Icons.arrow_back)),
       ),
       body: SingleChildScrollView(
         child: Column(

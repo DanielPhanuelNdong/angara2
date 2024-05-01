@@ -44,7 +44,7 @@ class _Forget_passeState extends State<Forget_passe> {
               'Mot de passe oublié',
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 30,
+                  fontSize: 23,
                   fontWeight: FontWeight.bold),
             ),
         
@@ -69,7 +69,9 @@ class _Forget_passeState extends State<Forget_passe> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
                 decoration: InputDecoration(
-                  labelStyle: TextStyle(color: Theme.of(context).primaryColor,),
+                  labelStyle: TextStyle(
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                         focusColor: Theme.of(context).primaryColor,
                         border: UnderlineInputBorder(
                           borderSide: BorderSide(color: Theme.of(context).primaryColor,)
@@ -109,7 +111,7 @@ class _Forget_passeState extends State<Forget_passe> {
                 }
               },
               child: Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(

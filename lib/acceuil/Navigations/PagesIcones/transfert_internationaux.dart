@@ -27,7 +27,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
     var children = [
       const SizedBox(
-        height: 60,
+        height: 40,
       ),
 
       //modes utilisés
@@ -39,14 +39,13 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
             onChanged: (Value) {
               setState(() {
                 current_option_t = Value!;
-                print(current_option_t);
               });
             },
             title: Text(
               item,
               style: TextStyle(
                   color: Theme.of(context).primaryColor,
-                  fontSize: 20,
+                  fontSize: 16,
                   fontWeight: FontWeight.bold),
             ),
             activeColor: Theme.of(context).primaryColor,
@@ -56,7 +55,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
       //sizebox
       const SizedBox(
-        height: 40,
+        height: 30,
       ),
 
       //texte
@@ -64,14 +63,14 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
         textAlign: TextAlign.center,
         'vueillez renseigner ci-dessous les informations du bénéficiaire',
         style: TextStyle(
-            fontSize: 20,
+            fontSize: 16,
             color: Color.fromARGB(255, 69, 69, 69),
             fontWeight: FontWeight.w400),
       ),
 
       //sizebox
       const SizedBox(
-        height: 20,
+        height: 10,
       ),
 
       //form
@@ -86,8 +85,8 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -112,7 +111,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer l'adresse
@@ -122,8 +121,8 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -148,7 +147,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer le type de piece
@@ -158,8 +157,8 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
                 keyboardType: TextInputType.text,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -184,7 +183,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer la date d'expiration
@@ -194,8 +193,8 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
                 keyboardType: TextInputType.datetime,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -220,7 +219,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 30,
+              height: 20,
             ),
 
             //Entrer le numero de la pièce
@@ -232,8 +231,8 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
                   labelStyle: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                  ),
+                      color: Theme.of(context).primaryColor.withOpacity(.3),
+                      fontWeight: FontWeight.bold),
                   focusColor: Theme.of(context).primaryColor,
                   border: UnderlineInputBorder(
                       borderSide: BorderSide(
@@ -258,7 +257,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
             //sizebox
             const SizedBox(
-              height: 50,
+              height: 30,
             ),
 
             //bouton de confirmation
@@ -273,7 +272,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
                 }
               },
               child: Container(
-                height: 60,
+                height: 42,
                 width: screen_width * .88,
                 alignment: Alignment.center,
                 decoration: BoxDecoration(

@@ -22,25 +22,25 @@ class Entete_state extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(35.0),
               child: Image.asset(
-                'images/Angara Pay-Bon.png',
+                'images/logo.png',
               ),
             )),
 
         //Sizebox
         const SizedBox(
-          height: 20,
+          height: 30,
         ),
 
         //Se connecter
         Text(
           text,
           style: TextStyle(
-              color: Theme.of(context).primaryColor, fontSize: 30, fontWeight: FontWeight.bold),
+              color: Theme.of(context).primaryColor.withOpacity(.8), fontSize: 23, fontWeight: FontWeight.bold),
         ),
 
         //Sizebox
         const SizedBox(
-          height: 30,
+          height: 10,
         ),
       ],
     );

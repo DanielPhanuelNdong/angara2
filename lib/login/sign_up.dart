@@ -34,7 +34,7 @@ class _Sign_upState extends State<Sign_up> {
                 ),
 
                 //connexion avec Facebook ou Google
-                const Facebook_Google(),
+                //const Facebook_Google(),
 
                 //sizedbox
                 const SizedBox(
@@ -54,16 +54,19 @@ class _Sign_upState extends State<Sign_up> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      labelStyle:
-                          TextStyle(color: Theme.of(context).primaryColor,),
+                      labelStyle: TextStyle(
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                       focusColor: Theme.of(context).primaryColor,
                       border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
-                      labelText: 'Entez votre nom et prenom',
+                        color: Theme.of(context).primaryColor,
+                      )),
+                      labelText: 'Entrez votre nom et prenom',
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
@@ -86,22 +89,25 @@ class _Sign_upState extends State<Sign_up> {
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      labelStyle:
-                          TextStyle(color: Theme.of(context).primaryColor,),
+                      labelStyle: TextStyle(
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                       focusColor: Theme.of(context).primaryColor,
                       border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
-                      labelText: 'Entez votre Contact',
+                        color: Theme.of(context).primaryColor,
+                      )),
+                      labelText: 'Entrez votre numéro',
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||
                           !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\S\./0-9]+$')
                               .hasMatch(value)) {
-                        return 'Entrer un contact correct';
+                        return 'Entrer un numéro correct';
                       } else {
                         return null;
                       }
@@ -114,20 +120,60 @@ class _Sign_upState extends State<Sign_up> {
                   height: 20,
                 ),
 
+                //code PIN
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    decoration: InputDecoration(
+                      labelStyle: TextStyle(
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
+                      focusColor: Theme.of(context).primaryColor,
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                      )),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                      )),
+                      labelText: 'Entrez votre code PIN',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty ||
+                          !RegExp(r'^[0-9]{1-5}+$')
+                              .hasMatch(value)) {
+                        return 'Entrer un PIN correct';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
+                ),
+
+
+                //sizebox
+                const SizedBox(
+                  height: 20,
+                ),
+
                 //Connexion par email
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: TextFormField(
                     decoration: InputDecoration(
-                      labelStyle:
-                          TextStyle(color: Theme.of(context).primaryColor,),
+                      labelStyle: TextStyle(
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                       focusColor: Theme.of(context).primaryColor,
                       border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       labelText: 'Entrez votre adresse email',
                     ),
                     validator: (value) {
@@ -157,14 +203,17 @@ class _Sign_upState extends State<Sign_up> {
                     obscureText: _obscure,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,),
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                       focusColor: Theme.of(context).primaryColor,
                       border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       labelText: 'Entrez votre mot Passe',
                       suffixIcon: IconButton(
                         onPressed: () {
@@ -206,14 +255,17 @@ class _Sign_upState extends State<Sign_up> {
                     obscureText: _obscure,
                     decoration: InputDecoration(
                       labelStyle: TextStyle(
-                          color: Theme.of(context).primaryColor,),
+                          color: Theme.of(context).primaryColor.withOpacity(.3),
+                          fontWeight: FontWeight.bold),
                       focusColor: Theme.of(context).primaryColor,
                       border: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       focusedBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
-                              color: Theme.of(context).primaryColor,)),
+                        color: Theme.of(context).primaryColor,
+                      )),
                       labelText: 'Confirmer votre mot de passe',
                       suffixIcon: IconButton(
                         onPressed: () {
@@ -233,9 +285,9 @@ class _Sign_upState extends State<Sign_up> {
                       if (value!.isEmpty ||
                           !RegExp(r'^[a-z A-Z 0-9]{4,8}$').hasMatch(value)) {
                         return 'veuillez confirmer le mot de passe';
-                      } else if(value != Passe_Controller.text){
+                      } else if (value != Passe_Controller.text) {
                         return 'le mot de passe ne correspond pas';
-                      }else {
+                      } else {
                         return null;
                       }
                     },
@@ -267,7 +319,9 @@ class _Sign_upState extends State<Sign_up> {
                         onPressed: () {},
                         child: Text(
                           'conditions d\'utilisation',
-                          style: TextStyle(color: Theme.of(context).primaryColor, fontSize: 11),
+                          style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                              fontSize: 11),
                         )),
                     const Text(
                       'de cette application',
@@ -289,7 +343,7 @@ class _Sign_upState extends State<Sign_up> {
                     }
                   },
                   child: Container(
-                    height: 60,
+                    height: 42,
                     width: screen_width * .88,
                     alignment: Alignment.center,
                     decoration: BoxDecoration(
@@ -298,7 +352,8 @@ class _Sign_upState extends State<Sign_up> {
                             const BorderRadius.all(Radius.circular(12)),
                         boxShadow: [
                           BoxShadow(
-                            color: Theme.of(context).primaryColor.withOpacity(.3),
+                            color:
+                                Theme.of(context).primaryColor.withOpacity(.3),
                             blurRadius: 10,
                             offset: const Offset(0, 4),
                             spreadRadius: 4,
@@ -330,7 +385,9 @@ class _Sign_upState extends State<Sign_up> {
                           },
                           child: Text(
                             'Se connecter',
-                            style: TextStyle(color: Theme.of(context).primaryColor,),
+                            style: TextStyle(
+                              color: Theme.of(context).primaryColor,
+                            ),
                           ),
                         )
                       ],

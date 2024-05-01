@@ -24,9 +24,9 @@ class _ReglagesState extends State<Reglages> {
                 color: Theme.of(context).primaryColor.withOpacity(.1),
               ),
               child: Text(
-                'Reglages',
+                'Réglages',
                 style: TextStyle(
-                  fontSize: 30,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Theme.of(context).primaryColor,
                 ),

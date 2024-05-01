@@ -1,39 +1,36 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wiso_cash/acceuil/index.dart';
+import 'package:wiso_cash/acceuil/Navigations/PagesIcones/details_retrait/details_retrait.dart';
 
-class Elements_Icones extends StatefulWidget {
-  const Elements_Icones({super.key});
+class retrait extends StatefulWidget {
+  const retrait({super.key});
 
   @override
-  State<Elements_Icones> createState() => _Elements_IconesState();
+  State<retrait> createState() => _retraitState();
 }
 
-TextEditingController controle = TextEditingController();
-TextEditingController controles = TextEditingController();
-String control2 = controle.text;
+TextEditingController controleR = TextEditingController();
+TextEditingController controlesR = TextEditingController();
+//String control2 = controle.text;
 
-class _Elements_IconesState extends State<Elements_Icones> {
-  final List<String> mode_transfert = [
-    'Mobile\nMoney',
-    'Wiso\n Cash',
-    'Mobile\n Wallet'
+class _retraitState extends State<retrait> {
+
+  final List<String> mode_transfertR = [
+    'Agent',
+    'SOWITEL\n GAB'
   ];
 
-  final formKey = GlobalKey<FormState>();
-  final formKey2 = GlobalKey<FormState>();
-  IconData vise = Icons.visibility_off;
+  final formKeyR = GlobalKey<FormState>();
+  final formKey2R = GlobalKey<FormState>();
   //bool _obscure = true;
 
-  String current_option = '';
+  String current_optionR = '';
 
   @override
   void initState() {
-    current_option = mode_transfert[0];
+    current_optionR = mode_transfertR[0];
     super.initState();
   }
-
-  //late String current_option = mode_transfert[0];
 
   @override
   Widget build(BuildContext context) {
@@ -54,26 +51,24 @@ class _Elements_IconesState extends State<Elements_Icones> {
           color: Theme.of(context).primaryColor.withOpacity(.03),
         ),
         child: Row(
-          children: mode_transfert.map((item) {
-            return SingleChildScrollView(
-              child: Expanded(
-                child: RadioListTile(
-                  value: item,
-                  groupValue: current_option,
-                  onChanged: (Value) {
-                    setState(() {
-                      current_option = Value!;
-                    });
-                  },
-                  title: Text(
-                    item,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  activeColor: Theme.of(context).primaryColor,
+          children: mode_transfertR.map((item) {
+            return Expanded(
+              child: RadioListTile(
+                value: item,
+                groupValue: current_optionR,
+                onChanged: (Value) {
+                  setState(() {
+                    current_optionR = Value!;
+                  });
+                },
+                title: Text(
+                  item,
+                  style: TextStyle(
+                      color: Theme.of(context).primaryColor,
+                      fontSize: 12,
+                      fontWeight: FontWeight.bold),
                 ),
+                activeColor: Theme.of(context).primaryColor,
               ),
             );
           }).toList(),
@@ -87,53 +82,15 @@ class _Elements_IconesState extends State<Elements_Icones> {
 
       //form
       Form(
-        key: formKey,
+        key: formKeyR,
         child: Column(
           children: [
-            //Entrer le numero
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextFormField(
-                controller: controles,
-                cursorColor: Theme.of(context).primaryColor,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  labelStyle: TextStyle(
-                      color: Theme.of(context).primaryColor.withOpacity(.3),
-                      fontWeight: FontWeight.bold),
-                  focusColor: Theme.of(context).primaryColor,
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                  )),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                  )),
-                  labelText: 'Entrez le numéro',
-                ),
-                validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\S\./0-9]+$')
-                          .hasMatch(value)) {
-                    return 'Veuillez entrer un numero correct';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ),
-
-            //sizebox
-            const SizedBox(
-              height: 20,
-            ),
 
             //Entrer le montant
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
-                controller: controle,
+                controller: controleR,
                 cursorColor: Theme.of(context).primaryColor,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -170,7 +127,7 @@ class _Elements_IconesState extends State<Elements_Icones> {
             //bouton de confirmation
             InkWell(
               onTap: () {
-                if (formKey.currentState!.validate()) {
+                if (formKeyR.currentState!.validate()) {
                   showDialog(
                     barrierColor:
                         Theme.of(context).primaryColor.withOpacity(.2),
@@ -183,7 +140,7 @@ class _Elements_IconesState extends State<Elements_Icones> {
                             fontWeight: FontWeight.bold),
                       ),
                       content: Form(
-                        key: formKey2,
+                        key: formKey2R,
                         child: Container(
                           alignment: Alignment.center,
                           height: screen_height * .35,
@@ -194,10 +151,8 @@ class _Elements_IconesState extends State<Elements_Icones> {
                               //textes de confirmation
                               Text(
                                   // ignore: prefer_interpolation_to_compose_strings
-                                  'Vous ête sur le point d\'éffectuer un envoie de ' +
-                                      controle.text +
-                                      ' au numéro ' +
-                                      controles.text),
+                                  'Vous ête sur le point d\'éffectuer un retrait de ' +
+                                      controleR.text ),
                               const SizedBox(
                                 height: 30,
                               ),
@@ -250,14 +205,14 @@ class _Elements_IconesState extends State<Elements_Icones> {
                       actions: <Widget>[
                         ElevatedButton(
                           onPressed: () {
-                            if (formKey2.currentState!.validate()) {
-                              Get.offAll(() => const acceuil(),
+                            if (formKey2R.currentState!.validate()) {
+                              Get.offAll(() => const Details_Retrait(),
                                   transition: Transition.fade,
                                   duration: const Duration(seconds: 1));
                               setState(() {
-                                controle.text = '';
-                                controles.text = '';
-                                current_option = mode_transfert[0];
+                                controleR.text = '';
+                                controlesR.text = '';
+                                current_optionR = mode_transfertR[0];
                               });
                             }
                           },
@@ -319,7 +274,7 @@ class _Elements_IconesState extends State<Elements_Icones> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'Mode d\'envoie',
+          'Effectuer un retrait',
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
@@ -327,9 +282,9 @@ class _Elements_IconesState extends State<Elements_Icones> {
             onPressed: () {
               Get.back();
               setState(() {
-                controle.text = '';
-                controles.text = '';
-                current_option = mode_transfert[0];
+                controleR.text = '';
+                controlesR.text = '';
+                current_optionR = mode_transfertR[0];
               });
             },
             icon: const Icon(Icons.arrow_back)),
