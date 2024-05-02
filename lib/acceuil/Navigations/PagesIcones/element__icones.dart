@@ -47,37 +47,26 @@ class _Elements_IconesState extends State<Elements_Icones> {
       ),
 
       //modes utilisés
-      Container(
-        height: 100,
-        width: screen_width,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(.03),
-        ),
-        child: Row(
-          children: mode_transfert.map((item) {
-            return SingleChildScrollView(
-              child: Expanded(
-                child: RadioListTile(
-                  value: item,
-                  groupValue: current_option,
-                  onChanged: (Value) {
-                    setState(() {
-                      current_option = Value!;
-                    });
-                  },
-                  title: Text(
-                    item,
-                    style: TextStyle(
-                        color: Theme.of(context).primaryColor,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  activeColor: Theme.of(context).primaryColor,
-                ),
-              ),
-            );
-          }).toList(),
-        ),
+      Column(
+        children: mode_transfert.map((item) {
+          return RadioListTile(
+            value: item,
+            groupValue: current_option,
+            onChanged: (Value) {
+              setState(() {
+                current_option = Value!;
+              });
+            },
+            title: Text(
+              item,
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+            activeColor: Theme.of(context).primaryColor,
+          );
+        }).toList(),
       ),
 
       //sizebox
@@ -341,6 +330,8 @@ class _Elements_IconesState extends State<Elements_Icones> {
           children: children,
         ),
       ),
+
+      // bottomNavigationBar: const Plage_Accueil(),
     );
   }
 }

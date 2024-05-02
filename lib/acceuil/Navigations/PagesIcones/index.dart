@@ -1,3 +1,4 @@
+export 'barre_navigation.dart';
 export 'elements_icons2.dart';
 export 'element__icones.dart';
 export 'paiement_factures.dart';

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:wiso_cash/acceuil/index.dart';
 
 class acceuil extends StatefulWidget {
@@ -17,10 +16,11 @@ class _acceuilState extends State<acceuil> {
   ];
 
   int current_index = 0;
+  final keyButtom = GlobalKey<NavigatorState>();
   @override
   Widget build(BuildContext context) {
-    double screen_width = MediaQuery.of(context).size.width;
-    double size_icones = screen_width * .065;
+    //double screen_width = MediaQuery.of(context).size.width;
+    //double size_icones = screen_width * .065;
 
     return Scaffold(
       backgroundColor: const Color.fromARGB(255, 242, 241, 241),
@@ -55,51 +55,46 @@ class _acceuilState extends State<acceuil> {
       ),
 
       //barre de navigation
-      bottomNavigationBar: Container(
-        decoration:
-            BoxDecoration(color: Theme.of(context).primaryColor, boxShadow: [
-          BoxShadow(
-              color: Colors.black.withOpacity(.3),
-              offset: const Offset(0, -2),
-              blurRadius: screen_width * .05,
-              spreadRadius: screen_width * .01,
-              )
-        ]),
-        child: Padding(
-          padding: const EdgeInsets.all(15.0),
-          child: GNav(
-            onTabChange: (index) {
-              setState(() {
-                current_index = index;
-              });
-            },
-            padding: const EdgeInsets.all(7),
-            selectedIndex: current_index,
-            tabBackgroundColor:
-                const Color.fromARGB(156, 157, 164, 224).withOpacity(.5),
-            color: Colors.white,
-            activeColor: Colors.white,
-            gap: 9,
-            tabs: [
-              GButton(
-                icon: Icons.home,
-                text: 'Accueil',
-                iconSize: size_icones,
-              ),
-              GButton(
-                icon: Icons.history_edu_outlined,
-                iconSize: size_icones,
-                text: 'Historiques',
-              ),
-              GButton(
-                icon: Icons.settings,
-                iconSize: size_icones,
-                text: 'Réglages',
-              )
-            ],
-          ),
-        ),
-      ),
+      bottomNavigationBar: BottomNavigationBar(
+          elevation: 5,
+          selectedFontSize: 10,
+          unselectedFontSize: 4,
+          enableFeedback: true,
+          showUnselectedLabels: false,
+          currentIndex: current_index,
+          selectedItemColor: Colors.white,
+          selectedLabelStyle: const TextStyle(color: Colors.white),
+          backgroundColor: Theme.of(context).primaryColor,
+          onTap: (index) {
+            setState(() {
+              current_index = index;
+            });
+          },
+          items: [
+            const BottomNavigationBarItem(
+                icon: Column(
+                  children: [
+                    Icon(
+                      Icons.home,
+                      color: Colors.white,
+                    ),
+                    SizedBox(
+                      height: 10,
+                    )
+                  ],
+                ),
+                label: 'Accueil'),
+            BottomNavigationBarItem(
+                icon: Image.asset(
+                  height: 40,
+                  width: 40,
+                  'images/historique.png',
+                ),
+                label: 'Historiques'),
+            BottomNavigationBarItem(
+                icon: Image.asset(height: 40, width: 40, 'images/reglage.png'),
+                label: 'Réglages')
+          ]),
     );
   }
 }
