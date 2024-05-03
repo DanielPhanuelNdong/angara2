@@ -12,11 +12,17 @@ class Plage_Accueil extends StatefulWidget {
 class _Plage_AccueilState extends State<Plage_Accueil> {
   @override
   Widget build(BuildContext context) {
+    
     double screen_width = MediaQuery.of(context).size.width;
     double screen_height = MediaQuery.of(context).size.height;
     double icontaille = screen_width * .18;
     double espace_icones = screen_width * .05;
     double espace_icones2 = screen_width * .035;
+
+
+    String titles = 'Anita Testerman';
+
+
     //double taille = screen_width*.14;
     return SingleChildScrollView(
       child: Column(
@@ -44,29 +50,37 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                       ]),
                 ),
               ),
-      
+
               //Profil
               Padding(
                 padding: EdgeInsets.only(
                     top: screen_height * .04, left: screen_width * .04),
-                child: const ListTile(
+                child: ListTile(
                   leading: CircleAvatar(
+                    backgroundColor: Colors.white,
                     radius: 30,
+                    child: Text(
+                      titles[0].toUpperCase(),
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 35,
+                          fontWeight: FontWeight.bold),
+                    ),
                   ),
                   title: Text(
-                    'Anita Testerman',
-                    style: TextStyle(
+                    titles,
+                    style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  subtitle: Text(
+                  subtitle: const Text(
                     '+237837847485743',
                     style: TextStyle(color: Color.fromARGB(255, 240, 239, 239)),
                   ),
                 ),
               ),
-      
+
               //compte principal et solde
               Positioned(
                 top: screen_height * .16,
@@ -96,12 +110,12 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
               ),
             ],
           ),
-      
+
           //sizedbox
           SizedBox(
             height: screen_height * .031,
           ),
-      
+
           //les differentes icones
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -132,12 +146,12 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                     )
                   ],
                 ),
-      
+
                 //sizebox
                 SizedBox(
                   width: espace_icones,
                 ),
-      
+
                 //Payer
                 Column(
                   children: [
@@ -162,12 +176,12 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                     )
                   ],
                 ),
-      
+
                 //sizebox
                 SizedBox(
                   width: espace_icones,
                 ),
-      
+
                 //Recharger
                 Column(
                   children: [
@@ -192,12 +206,12 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                     )
                   ],
                 ),
-      
+
                 //sizebox
                 SizedBox(
                   width: espace_icones,
                 ),
-      
+
                 //Retrait
                 Column(
                   children: [
@@ -226,12 +240,12 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
               ],
             ),
           ),
-      
+
           //sizedbox
           SizedBox(
             height: screen_height * .04,
           ),
-      
+
           //ligne 2 des services
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
@@ -294,12 +308,12 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                     )
                   ],
                 ),
-      
+
                 //sizebox
                 SizedBox(
                   width: espace_icones2,
                 ),
-      
+
                 //recharges unités
                 Column(
                   children: [
@@ -325,12 +339,12 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                     )
                   ],
                 ),
-      
+
                 //sizebox
                 SizedBox(
                   width: espace_icones2,
                 ),
-      
+
                 //transferts internationaux
                 Column(
                   children: [
@@ -345,11 +359,11 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                         fit: BoxFit.cover,
                       ),
                     ),
-      
+
                     SizedBox(
                       height: screen_height * .0001,
                     ),
-      
+
                     //texte
                     const Text(
                       'Transferts\n Internationaux',

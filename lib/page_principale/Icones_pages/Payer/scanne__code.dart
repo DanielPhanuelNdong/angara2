@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
-import 'package:wiso_cash/page_principale/Nav_Bar_composants/Nav_Bar.dart';
 import 'package:wiso_cash/page_principale/index.dart';
 //import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
 
@@ -36,6 +35,17 @@ class _Scanner_codeState extends State<Scanner_code> {
               Get.offAll(() => const acceuil());
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                _BarcodeResult = '';
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SafeArea(
         child: Stack(

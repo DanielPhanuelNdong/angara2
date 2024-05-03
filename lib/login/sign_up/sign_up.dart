@@ -97,7 +97,7 @@ class _Sign_upState extends State<Sign_up> {
                           borderSide: BorderSide(
                         color: Theme.of(context).primaryColor,
                       )),
-                      labelText: 'Entrez votre numéro',
+                      labelText: 'Entrez votre numéro de téléphone',
                     ),
                     validator: (value) {
                       if (value!.isEmpty ||

@@ -202,6 +202,18 @@ class _recharge_unitesState extends State<recharge_unites> {
               });
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controle2223.text = '';
+                current_options2 = Reseaux[0];
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -241,42 +253,35 @@ class _Recharge_modeState extends State<Recharge_mode> {
   @override
   Widget build(BuildContext context) {
     double screen_width = MediaQuery.of(context).size.width;
+    double screen_height = MediaQuery.of(context).size.height;
 
     var children = [
-      const SizedBox(
-        height: 60,
+      //sizebox
+      SizedBox(
+        height: screen_height * .10,
       ),
 
       //modes utilisés
-      Container(
-        height: 100,
-        width: screen_width,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(.03),
-        ),
-        child: Row(
-          children: mode_transfert222.map((item) {
-            return Expanded(
-              child: RadioListTile(
-                value: item,
-                groupValue: current_option222,
-                onChanged: (Value) {
-                  setState(() {
-                    current_option222 = Value!;
-                  });
-                },
-                title: Text(
-                  item,
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
-                ),
-                activeColor: Theme.of(context).primaryColor,
-              ),
-            );
-          }).toList(),
-        ),
+      Column(
+        children: mode_transfert222.map((item) {
+          return RadioListTile(
+            value: item,
+            groupValue: current_option222,
+            onChanged: (Value) {
+              setState(() {
+                current_option222 = Value!;
+              });
+            },
+            title: Text(
+              item,
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+            activeColor: Theme.of(context).primaryColor,
+          );
+        }).toList(),
       ),
 
       //sizebox
@@ -529,6 +534,19 @@ class _Recharge_modeState extends State<Recharge_mode> {
               });
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controle222.text = '';
+                controles222.text = '';
+                current_option222 = mode_transfert222[0];
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

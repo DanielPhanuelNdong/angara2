@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:image_picker/image_picker.dart';
+import 'package:flutter/services.dart';
 import 'package:share_plus/share_plus.dart';
 
 class Recevoir extends StatefulWidget {
@@ -8,6 +8,9 @@ class Recevoir extends StatefulWidget {
   @override
   State<Recevoir> createState() => _RecevoirState();
 }
+
+String texte = 'https://www.youtube.com/watch?v=Gy1by7rKdME';
+String Image_Scan = 'images/scan.jpg';
 
 class _RecevoirState extends State<Recevoir> {
   @override
@@ -20,11 +23,32 @@ class _RecevoirState extends State<Recevoir> {
             padding: const EdgeInsets.only(right: 20),
             child: IconButton(
               onPressed: () async {
-                final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-                if (image == null) return;
+                //Share.share(texte);
+                final image = await rootBundle.load(Image_Scan);
+                final buffer = image.buffer;
 
-                await Share.shareXFiles([XFile('images/scan.jpg')], text: 'mon lien ici',);
+                await Share.shareXFiles([
+                  XFile.fromData(
+                    buffer.asUint8List(
+                      image.offsetInBytes,
+                      image.lengthInBytes,
+                    ),
+                    name: 'QR Code',
+                    mimeType: 'jpg'
+                  ),
+                  
+                ],
+                subject: 'QR Code'
+
+                );
               },
+              // async {
+              //   final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+                
+              //   if (image == null) return;
+
+              //   await Share.shareXFiles([XFile('images/scan.jpg')], text: 'mon lien ici',);
+              // },
               icon: const Icon(Icons.share)),
           )
         ],

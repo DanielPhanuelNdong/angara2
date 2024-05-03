@@ -265,6 +265,17 @@ class _Elements_icones2State extends State<Elements_icones2> {
           style: TextStyle(color: Colors.black),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controle11.text = '';
+                controles11.text = '';
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

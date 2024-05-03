@@ -15,8 +15,8 @@ String control3 = controle1.text;
 
 final List<String> mode_transferts = [
   'Mobile Money',
-  'Wiso\n Cash',
-  'Mobile\n Wallet'
+  'Wiso Cash',
+  'Mobile Wallet'
 ];
 
 final formKeys = GlobalKey<FormState>();
@@ -33,38 +33,29 @@ class _PayerState extends State<Payer> {
     var children = [
       //sizebox
       SizedBox(
-        height: screen_height * .15,
+        height: screen_height * .10,
       ),
 
-      Container(
-        height: 100,
-        width: screen_width,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(.03),
-        ),
-        child: Row(
-          children: mode_transferts.map((item) {
-            return Expanded(
-              child: RadioListTile(
-                value: item,
-                groupValue: current_option2s,
-                onChanged: (Value) {
-                  setState(() {
-                    current_option2s = Value!;
-                  });
-                },
-                title: Text(
-                  item,
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
-                ),
-                activeColor: Theme.of(context).primaryColor,
-              ),
-            );
-          }).toList(),
-        ),
+      Column(
+        children: mode_transferts.map((item) {
+          return RadioListTile(
+            value: item,
+            groupValue: current_option2s,
+            onChanged: (Value) {
+              setState(() {
+                current_option2s = Value!;
+              });
+            },
+            title: Text(
+              item,
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+            activeColor: Theme.of(context).primaryColor,
+          );
+        }).toList(),
       ),
 
       //sizebox
@@ -306,6 +297,17 @@ class _PayerState extends State<Payer> {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controle1.text = '';
+                controles1.text = '';
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -15,9 +15,9 @@ String control2 = controle.text;
 
 class _Elements_IconesState extends State<Elements_Icones> {
   final List<String> mode_transfert = [
-    'Mobile\nMoney',
-    'Wiso\n Cash',
-    'Mobile\n Wallet'
+    'Mobile Money',
+    'Wiso Cash',
+    'Mobile Wallet'
   ];
 
   final formKey = GlobalKey<FormState>();
@@ -43,7 +43,7 @@ class _Elements_IconesState extends State<Elements_Icones> {
     var children = [
       //sizebox
       SizedBox(
-        height: screen_height * .15,
+        height: screen_height * .10,
       ),
 
       //modes utilisés
@@ -239,7 +239,8 @@ class _Elements_IconesState extends State<Elements_Icones> {
                             if (formKey2.currentState!.validate()) {
                               Get.offAll(() => const acceuil(),
                                   transition: Transition.fade,
-                                  duration: const Duration(seconds: 1));
+                                  duration: const Duration(seconds: 3));
+                                  //const SnackBar(content: Text( 'validé avec succès'));
                               setState(() {
                                 controle.text = '';
                                 controles.text = '';
@@ -319,12 +320,26 @@ class _Elements_IconesState extends State<Elements_Icones> {
               });
             },
             icon: const Icon(Icons.arrow_back)),
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controle.text = '';
+                controles.text = '';
+                current_option = mode_transfert[0];
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          // mainAxisAlignment: MainAxisAlignment.center,
-          // crossAxisAlignment: CrossAxisAlignment.center,
-          children: children,
+        child: Center(
+          child: Column(
+            // mainAxisAlignment: MainAxisAlignment.center,
+            // crossAxisAlignment: CrossAxisAlignment.center,
+            children: children,
+          ),
         ),
       ),
 

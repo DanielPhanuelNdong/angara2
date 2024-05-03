@@ -313,6 +313,19 @@ class _Page2_internationauxState extends State<Page2_internationaux> {
               });
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controle_t2.text = '';
+                controles_t2.text = '';
+                current_option_t2 = mode_transferts_t2[0];
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

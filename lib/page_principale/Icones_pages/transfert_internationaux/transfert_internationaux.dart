@@ -19,6 +19,7 @@ final formKeys_t = GlobalKey<FormState>();
 final formKey_t = GlobalKey<FormState>();
 
 String current_option_t = mode_transferts_t[0];
+String? dropdowValue;
 
 class _Transfert_internationauxState extends State<Transfert_internationaux> {
   @override
@@ -63,9 +64,7 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
         textAlign: TextAlign.center,
         'vueillez renseigner ci-dessous les informations du bénéficiaire',
         style: TextStyle(
-            fontSize: 16,
-            color: Colors.black,
-            fontWeight: FontWeight.bold),
+            fontSize: 16, color: Colors.black, fontWeight: FontWeight.bold),
       ),
 
       //sizebox
@@ -148,32 +147,55 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
 
             //Entrer le type de piece
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextFormField(
-                keyboardType: TextInputType.text,
-                decoration: InputDecoration(
-                  labelStyle: Theme.of(context).textTheme.bodyMedium,
-                  focusColor: Theme.of(context).primaryColor,
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                  )),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                  )),
-                  labelText: 'Entrez le type de pièce',
-                ),
-                validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^[a-z A-Z 0-9]+$').hasMatch(value)) {
-                    return 'Entrez une pièce correct';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ),
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: DropdownButtonFormField(
+                  hint: Text('Sélectionnez le type de pièce', style: Theme.of(context).textTheme.bodyMedium,),
+                  disabledHint: const Text(''),
+                  value: dropdowValue,
+                  items: const [
+                    DropdownMenuItem(value: 'CNI', child: Text("CNI")),
+                    DropdownMenuItem(
+                        value: 'Passeport', child: Text("Passeport"))
+                  ],
+                  onChanged: (String? newvalue) {
+                    setState(() {
+                      dropdowValue = newvalue;
+                    });
+                  },
+                  validator: (String? value) {
+                    if (value != 'CNI' && value != 'Passeport') {
+                      return 'Veuillez sélectionner le type de pièce';
+                    } else {
+                      return null;
+                    }
+                  },
+                )),
+            // Padding(
+            //   padding: const EdgeInsets.symmetric(horizontal: 20),
+            //   child: TextFormField(
+            //     keyboardType: TextInputType.text,
+            //     decoration: InputDecoration(
+            //       labelStyle: Theme.of(context).textTheme.bodyMedium,
+            //       focusColor: Theme.of(context).primaryColor,
+            //       border: UnderlineInputBorder(
+            //           borderSide: BorderSide(
+            //         color: Theme.of(context).primaryColor,
+            //       )),
+            //       focusedBorder: UnderlineInputBorder(
+            //           borderSide: BorderSide(
+            //         color: Theme.of(context).primaryColor,
+            //       )),
+            //       labelText: 'Entrez le type de pièce',
+            //     ),
+            //     validator: (value) {
+            //       if (value!.isEmpty ||           !RegExp(r'^[a-z A-Z 0-9]+$').hasMatch(value)) {
+            //         return 'Entrez une pièce correct';
+            //       } else {
+            //         return null;
+            //       }
+            //     },
+            //   ),
+            // ),
 
             //sizebox
             const SizedBox(
@@ -215,35 +237,36 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
             ),
 
             //Entrer le numero de la pièce
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: TextFormField(
-                controller: controles_t,
-                cursorColor: Theme.of(context).primaryColor,
-                keyboardType: TextInputType.phone,
-                decoration: InputDecoration(
-                  labelStyle: Theme.of(context).textTheme.bodyMedium,
-                  focusColor: Theme.of(context).primaryColor,
-                  border: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                  )),
-                  focusedBorder: UnderlineInputBorder(
-                      borderSide: BorderSide(
-                    color: Theme.of(context).primaryColor,
-                  )),
-                  labelText: 'Entrez le numéro de la pièce',
+            
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20),
+                  child: TextFormField(
+                    controller: controles_t,
+                    cursorColor: Theme.of(context).primaryColor,
+                    keyboardType: TextInputType.phone,
+                    decoration: InputDecoration(
+                      labelStyle: Theme.of(context).textTheme.bodyMedium,
+                      focusColor: Theme.of(context).primaryColor,
+                      border: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                      )),
+                      focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                        color: Theme.of(context).primaryColor,
+                      )),
+                      labelText: 'Entrez le numéro de la pièce',
+                    ),
+                    validator: (value) {
+                      if (value!.isEmpty ||         !RegExp(r'^[a-z A-Z 0-9]+$').hasMatch(value)) {
+                        return 'Veuillez entrer un numero correct';
+                      } else {
+                        return null;
+                      }
+                    },
+                  ),
                 ),
-                validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^[a-z A-Z 0-9]+$').hasMatch(value)) {
-                    return 'Veuillez entrer un numero correct';
-                  } else {
-                    return null;
-                  }
-                },
-              ),
-            ),
+                
 
             //sizebox
             const SizedBox(
@@ -311,6 +334,21 @@ class _Transfert_internationauxState extends State<Transfert_internationaux> {
               });
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                dropdowValue != 'CNI';
+                dropdowValue != 'Passeport';
+                controle_t.text = '';
+                controles_t.text = '';
+                current_option_t = mode_transferts_t[0];
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

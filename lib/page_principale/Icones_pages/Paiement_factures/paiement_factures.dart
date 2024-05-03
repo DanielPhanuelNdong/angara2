@@ -194,6 +194,17 @@ class _Paiement_factureState extends State<Paiement_facture> {
               });
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                current_options = Element_paiement[0];
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -239,40 +250,31 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
     var children = [
       //sizebox
       SizedBox(
-        height: screen_height * .15,
+        height: screen_height * .10,
       ),
 
 
       //modes utilisés
-      Container(
-        height: 100,
-        width: screen_width,
-        decoration: BoxDecoration(
-          color: Theme.of(context).primaryColor.withOpacity(.03),
-        ),
-        child: Row(
-          children: mode_transfert22.map((item) {
-            return Expanded(
-              child: RadioListTile(
-                value: item,
-                groupValue: current_option22,
-                onChanged: (Value) {
-                  setState(() {
-                    current_option22 = Value!;
-                  });
-                },
-                title: Text(
-                  item,
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold),
-                ),
-                activeColor: Theme.of(context).primaryColor,
-              ),
-            );
-          }).toList(),
-        ),
+      Column(
+        children: mode_transfert22.map((item) {
+          return RadioListTile(
+            value: item,
+            groupValue: current_option22,
+            onChanged: (Value) {
+              setState(() {
+                current_option22 = Value!;
+              });
+            },
+            title: Text(
+              item,
+              style: TextStyle(
+                  color: Theme.of(context).primaryColor,
+                  fontSize: 12,
+                  fontWeight: FontWeight.bold),
+            ),
+            activeColor: Theme.of(context).primaryColor,
+          );
+        }).toList(),
       ),
 
       //sizebox
@@ -522,6 +524,19 @@ class _mode_paiement_factureState extends State<mode_paiement_facture> {
               Get.off(() => const Paiement_facture());
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controle22.text = '';
+                controles22.text = '';
+                current_option22 = mode_transfert22[0];
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(

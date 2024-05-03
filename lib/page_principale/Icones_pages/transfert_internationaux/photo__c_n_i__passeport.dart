@@ -27,6 +27,13 @@ class _Photo_CNI_PasseportState extends State<Photo_CNI_Passeport> {
           style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
         centerTitle: true,
+        actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Center(

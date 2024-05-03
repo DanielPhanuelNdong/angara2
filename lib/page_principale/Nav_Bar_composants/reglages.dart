@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class Reglages extends StatefulWidget {
   const Reglages({super.key});
@@ -58,7 +60,7 @@ class _ReglagesState extends State<Reglages> {
           //partager l'application
           GestureDetector(
             onTap: () {
-              
+              Share.share('com.example.wiso_cash');
             },
             child: const ListTile(
               leading:  Icon(Icons.share),
@@ -68,7 +70,16 @@ class _ReglagesState extends State<Reglages> {
 
           //Nous contacter
           GestureDetector(
-            onTap: () {
+            onTap: () async {
+              final Uri url = Uri(
+                scheme: 'tel',
+                path: '+237692494794',
+              );
+              if(await canLaunchUrl(url)){
+                await launchUrl(url);
+              }else{
+                print('cannot launch this tel');
+              }
               
             },
             child: const ListTile(

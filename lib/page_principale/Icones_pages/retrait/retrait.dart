@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:wiso_cash/page_principale/Icones_pages/retrait/details_retrait.dart';
+import 'package:wiso_cash/page_principale/index.dart';
 
 class retrait extends StatefulWidget {
   const retrait({super.key});
@@ -286,6 +286,18 @@ class _retraitState extends State<retrait> {
               });
             },
             icon: const Icon(Icons.arrow_back)),
+
+            actions: [
+          IconButton(
+            onPressed: (){
+              Get.offAll(() => const acceuil());
+              setState(() {
+                controleR.text = '';
+                controlesR.text = '';
+              });
+            },
+            icon: const Icon(Icons.cancel, size: 35,))
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
