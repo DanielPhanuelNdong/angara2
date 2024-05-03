@@ -12,16 +12,13 @@ class Plage_Accueil extends StatefulWidget {
 class _Plage_AccueilState extends State<Plage_Accueil> {
   @override
   Widget build(BuildContext context) {
-    
     double screen_width = MediaQuery.of(context).size.width;
     double screen_height = MediaQuery.of(context).size.height;
     double icontaille = screen_width * .18;
     double espace_icones = screen_width * .05;
-    double espace_icones2 = screen_width * .035;
-
+    double espace_icones2 = screen_width * .08;
 
     String titles = 'Anita Testerman';
-
 
     //double taille = screen_width*.14;
     return SingleChildScrollView(
@@ -33,7 +30,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
               Align(
                 alignment: Alignment.topCenter,
                 child: Container(
-                  height: screen_height * .23,
+                  height: screen_height * .28,
                   width: screen_width,
                   decoration: BoxDecoration(
                       borderRadius: const BorderRadius.only(
@@ -83,7 +80,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
 
               //compte principal et solde
               Positioned(
-                top: screen_height * .16,
+                top: screen_height * .17,
                 left: screen_width * .1,
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -95,7 +92,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                       ),
                     ),
                     SizedBox(
-                      width: screen_width * .3,
+                      width: screen_width * .06,
                     ),
                     const Text(
                       '100000.00 XAF',
@@ -105,7 +102,46 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
+                    SizedBox(
+                      width: screen_width * .1,
+                    ),
                   ],
+                ),
+              ),
+
+              //Recevoir
+              Positioned(
+                top: screen_height * .12,
+                left: screen_width*.75,
+                child: GestureDetector(
+                  onTap: () {
+                          Get.to(() => const Recevoir());
+                        },
+                  child: Column(
+                    //crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                        
+                        Image.asset(
+                          height: icontaille,
+                          width: icontaille,
+                          'images/qrcode.png',
+                          fit: BoxFit.cover,
+                        ),
+                      
+                      // SizedBox(
+                      //   height: screen_height * .0001,
+                      // ),
+                      const Text(
+                        textAlign: TextAlign.center,
+                        'Recevoir\n Paiement',
+                        style: TextStyle(
+                            color: Color.fromARGB(255, 255, 255, 255),
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold),
+                      )
+                    ],
+                  ),
                 ),
               ),
             ],
@@ -113,7 +149,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
 
           //sizedbox
           SizedBox(
-            height: screen_height * .031,
+            height: screen_height * .05,
           ),
 
           //les differentes icones
@@ -252,37 +288,6 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
-                //Recevoir
-                Column(
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Get.to(() => const Recevoir());
-                      },
-                      child: Image.asset(
-                        height: icontaille,
-                        width: icontaille,
-                        'images/recevoir.png',
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                    SizedBox(
-                      height: screen_height * .0001,
-                    ),
-                    const Text(
-                      textAlign: TextAlign.center,
-                      'Recevoir\n Paiement',
-                      style: TextStyle(
-                          color: Colors.black, fontWeight: FontWeight.bold),
-                    )
-                  ],
-                ),
-
-                //sizebox
-                SizedBox(
-                  width: espace_icones2,
-                ),
-
                 //paiements factures
                 Column(
                   children: [
