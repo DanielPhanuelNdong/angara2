@@ -140,25 +140,7 @@ class _Scanner_codeState extends State<Scanner_code> {
               ),
             ),
 
-            //suivant
-            Positioned(
-              top: 450,
-              left: 230,
-              child: TextButton(
-                  onPressed: () {
-                    Get.to(() => const Payer());
-                  },
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Suivant',
-                        style: TextStyle(color: Colors.blue),
-                      ),
-                      Icon(Icons.arrow_forward)
-                    ],
-                  )),
-            )
+            
           ],
         ),
       ),

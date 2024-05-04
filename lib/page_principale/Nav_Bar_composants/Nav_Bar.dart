@@ -76,6 +76,7 @@ class _acceuilState extends State<acceuil> {
                   children: [
                     Icon(
                       Icons.home,
+                      size: 33,
                       color: Colors.white,
                     ),
                     SizedBox(
@@ -86,13 +87,13 @@ class _acceuilState extends State<acceuil> {
                 label: 'Accueil'),
             BottomNavigationBarItem(
                 icon: Image.asset(
-                  height: 40,
-                  width: 40,
+                  height: 60,
+                  width: 60,
                   'images/historique.png',
                 ),
                 label: 'Historiques'),
             BottomNavigationBarItem(
-                icon: Image.asset(height: 40, width: 40, 'images/reglage.png'),
+                icon: Image.asset(height: 60, width: 60, 'images/reglage.png'),
                 label: 'Réglages')
           ]),
     );
