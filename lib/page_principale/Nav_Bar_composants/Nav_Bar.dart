@@ -17,6 +17,21 @@ class _acceuilState extends State<acceuil> {
 
   int current_index = 0;
   final keyButtom = GlobalKey<NavigatorState>();
+
+  late final PageController controle;
+
+  @override
+  void initState() {
+    controle = PageController(initialPage: current_index);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    controle.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     //double screen_width = MediaQuery.of(context).size.width;
@@ -40,7 +55,7 @@ class _acceuilState extends State<acceuil> {
       body: Center(
         child: PageView.builder(
           scrollBehavior: const ScrollBehavior(),
-          controller: PageController(),
+          controller: controle,
           itemCount: elements.length,
           itemBuilder: (context, index) {
             return elements[current_index];
