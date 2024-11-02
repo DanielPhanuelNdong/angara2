@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_bloc.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_event.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_state.dart';
 import 'package:wiso_cash/page_principale/Nav_Bar_composants/Nav_Bar.dart';
 
 class Elements_icones2 extends StatefulWidget {
@@ -9,22 +14,51 @@ class Elements_icones2 extends StatefulWidget {
   State<Elements_icones2> createState() => _Elements_icones2State();
 }
 
-final List<String> mode_transfert = [
-  'Mobile Money',
-  'Wiso Cash',
-  'Mobile Wallet'
-];
+class _Elements_icones2State extends State<Elements_icones2> {
+  final formKeyw = GlobalKey<FormState>();
+  final formKey2w = GlobalKey<FormState>();
 
-final formKeyw = GlobalKey<FormState>();
-final formKey2w = GlobalKey<FormState>();
+  TextEditingController montant_controle1 = TextEditingController();
+  TextEditingController num_controle1 = TextEditingController();
 
-TextEditingController controle11 = TextEditingController();
-TextEditingController controles11 = TextEditingController();
+  final Map<String, String> data1 = {
+    'codeserv': 'effectuerunerechargemobilemoney',
+    'montant': '',
+    'numtel': '',
+    'descr': 'RAS',
+    'codewallet': ''
+  };
+
+  String url1 = "iwallet.php";
+  bool rede = false;
 //String control3 = controle11.text;
 
-String current_option = '';
+  String? codewallet = '';
 
-class _Elements_icones2State extends State<Elements_icones2> {
+  String current_option = '';
+
+  @override
+  void initState() {
+    loadCodeconn();
+    super.initState();
+  }
+
+  Future<void> loadCodeconn() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      codewallet = prefs.getString('codewallet');
+      data1['codewallet'] = codewallet ?? '';
+    });
+  }
+  //late String current_option = mode_transfert[0];
+
+  @override
+  void dispose() {
+    super.dispose();
+    montant_controle1.dispose();
+    num_controle1.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     double screen_width = MediaQuery.of(context).size.width;
@@ -43,7 +77,7 @@ class _Elements_icones2State extends State<Elements_icones2> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
-                controller: controle11,
+                controller: num_controle1,
                 cursorColor: Theme.of(context).primaryColor,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
@@ -65,6 +99,7 @@ class _Elements_icones2State extends State<Elements_icones2> {
                           .hasMatch(value)) {
                     return 'Veuillez entrer un numero correct';
                   } else {
+                    data1['numtel'] = num_controle1.text;
                     return null;
                   }
                 },
@@ -80,7 +115,7 @@ class _Elements_icones2State extends State<Elements_icones2> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
-                controller: controles11,
+                controller: montant_controle1,
                 cursorColor: Theme.of(context).primaryColor,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -97,10 +132,10 @@ class _Elements_icones2State extends State<Elements_icones2> {
                   labelText: 'Entrez le montant',
                 ),
                 validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^[0-9]{4,10}$').hasMatch(value)) {
+                  if (value!.isEmpty || !RegExp(r'^[0-9]$').hasMatch(value)) {
                     return 'Veuillez entrer un montant correct';
                   } else {
+                    data1['montant'] = montant_controle1.text;
                     return null;
                   }
                 },
@@ -116,117 +151,12 @@ class _Elements_icones2State extends State<Elements_icones2> {
             InkWell(
               onTap: () {
                 if (formKeyw.currentState!.validate()) {
-                  showDialog(
-                    barrierColor:
-                        Theme.of(context).primaryColor.withOpacity(.2),
-                    context: context,
-                    builder: (ctx) => AlertDialog(
-                      title: Text(
-                        'Veuillez Confirmer',
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontWeight: FontWeight.bold),
-                      ),
-                      content: Form(
-                        key: formKey2w,
-                        child: Container(
-                          alignment: Alignment.center,
-                          height: 250,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              //textes de confirmation
-                              Text(
-                                  // ignore: prefer_interpolation_to_compose_strings
-                                  'Vous ête sur le point d\'éffectuer une recharge de ' +
-                                      controles11.text +
-                                      ' au numéro ' +
-                                      controle11.text,
-                                      style: const TextStyle(color: Colors.black),
-                                      ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              const Text(
-                                  'Saisissez votre code PIN pour valider',
-                                  style: TextStyle(color: Colors.black),
-                                  ),
-
-                              //sizebox
-                              const SizedBox(
-                                height: 30,
-                              ),
-
-                              //Entrer le code PIN
-                              Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 20),
-                                child: TextFormField(
-                                  keyboardType: TextInputType.number,
-                                  decoration: InputDecoration(
-                                    labelStyle: Theme.of(context).textTheme.bodyMedium,
-                                    focusColor: Theme.of(context).primaryColor,
-                                    border: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor,
-                                    )),
-                                    focusedBorder: UnderlineInputBorder(
-                                        borderSide: BorderSide(
-                                      color: Theme.of(context).primaryColor,
-                                    )),
-                                    labelText: 'Entez votre Code PIN',
-                                  ),
-                                  validator: (value) {
-                                    if (value!.isEmpty ||
-                                        !RegExp(r'^[0-9]{5}$')
-                                            .hasMatch(value)) {
-                                      return 'Entrer un code correct';
-                                    } else {
-                                      return null;
-                                    }
-                                  },
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      actions: <Widget>[
-                        ElevatedButton(
-                          onPressed: () {
-                            if (formKey2w.currentState!.validate()) {
-                              Get.offAll(() => const acceuil(),
-                                  transition: Transition.fade,
-                                  duration: const Duration(seconds: 1));
-                              setState(() {
-                                controle11.text = '';
-                                controles11.text = '';
-                                current_option = mode_transfert[0];
-                              });
-                            }
-                          },
-                          child: Text(
-                            'Valider',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                        ),
-                        TextButton(
-                          onPressed: () {
-                            Get.back();
-                          },
-                          child: Text(
-                            'Annuler',
-                            style: TextStyle(
-                              color: Theme.of(context).primaryColor,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  );
+                  rede = true;
+                  if (rede) {
+                    context
+                        .read<BlocBloc>()
+                        .add(registerDataEvent(data: data1, url: url1));
+                  }
                 }
               },
               child: Container(
@@ -267,21 +197,96 @@ class _Elements_icones2State extends State<Elements_icones2> {
         centerTitle: true,
         actions: [
           IconButton(
-            onPressed: (){
-              Get.offAll(() => const acceuil());
-              setState(() {
-                controle11.text = '';
-                controles11.text = '';
-              });
-            },
-            icon: const Icon(Icons.cancel, size: 35,))
+              onPressed: () {
+                Get.offAll(() => const acceuil());
+                setState(() {
+                  montant_controle1.text = '';
+                  num_controle1.text = '';
+                });
+              },
+              icon: const Icon(
+                Icons.cancel,
+                size: 35,
+              ))
         ],
       ),
       body: SingleChildScrollView(
-        child: Column(
-          children: children,
+          child: BlocListener<BlocBloc, BlocState>(
+        listener: (context, state) {
+          if (state is RegisterSuccessState) {
+            // Accédez à `head` et `body` en toute sécurité après avoir vérifié le type de `state`
+            final register = (state).register;
+            if (register != null) {
+              if (register.head == false) {
+                // Affiche une `SnackBar` si `head` est `false`
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: const Color.fromARGB(255, 136, 13, 4),
+                    content: Text(
+                      register.body?.msg ?? 'Erreur inconnue',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+              } else {
+                // Affiche un dialogue si `head` est `true`
+                showDialog(
+                  barrierColor: Theme.of(context).primaryColor.withOpacity(.2),
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text(
+                      'Félicitations',
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    content: Container(
+                      alignment: Alignment.center,
+                      height: screen_height * .35,
+                      child: const Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            //textes de confirmation
+                            Text(
+                              // ignore: prefer_interpolation_to_compose_strings
+                              'Recharge initiée avec succès !!!. Veuillez la confirmer sur votre mobile',
+                              style: TextStyle(color: Colors.green),
+                            ),
+                          ]),
+                    ),
+                    actions: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          rede = true;
+                          if (rede == true) {
+                            Get.offAll(
+                              () => const acceuil(),
+                              //transition: Transition.size,
+                              duration: Durations.medium2,
+                            );
+                          }
+                        },
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            }
+          }
+        },
+        child: BlocBuilder<BlocBloc, BlocState>(
+          builder: (context, state) => Column(
+            children: children,
+          ),
         ),
-      ),
+      )),
     );
   }
 }

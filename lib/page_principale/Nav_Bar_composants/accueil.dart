@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_bloc.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_event.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_state.dart';
 import 'package:wiso_cash/page_principale/index.dart';
 
 class Plage_Accueil extends StatefulWidget {
@@ -10,6 +15,42 @@ class Plage_Accueil extends StatefulWidget {
 }
 
 class _Plage_AccueilState extends State<Plage_Accueil> {
+  String? nomsutilis = '';
+  String? prenomsutilis = '';
+  String? intitulewallet = '';
+  String? codewallet = '';
+  String? solde = '';
+
+  final Map<String, String> data = {
+    'codeserv': 'consulterunwallet',
+    'codewallet': '',
+  };
+
+  String url = "iwallet.php";
+  @override
+  void initState() {
+    super.initState();
+    loadCodeconn();
+    _triggerBlocEvent();
+  }
+
+  Future<void> loadCodeconn() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      nomsutilis = prefs.getString('nomsutilis');
+      prenomsutilis = prefs.getString('prenomsutilis');
+      intitulewallet = prefs.getString('intitulewallet');
+      codewallet = prefs.getString('codewallet');
+      data['codewallet'] = codewallet ?? '';
+    });
+  }
+
+  void _triggerBlocEvent() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<BlocBloc>().add(registerDataEvent(data: data, url: url));
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     double screen_width = MediaQuery.of(context).size.width;
@@ -18,7 +59,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
     double espace_icones = screen_width * .05;
     double espace_icones2 = screen_width * .08;
 
-    String titles = 'Anita Testerman';
+    String? titles = '${nomsutilis ?? ''} ${prenomsutilis ?? ''}';
 
     //double taille = screen_width*.14;
     return SingleChildScrollView(
@@ -71,9 +112,10 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                         fontWeight: FontWeight.bold,
                         color: Colors.white),
                   ),
-                  subtitle: const Text(
-                    '+237837847485743',
-                    style: TextStyle(color: Color.fromARGB(255, 240, 239, 239)),
+                  subtitle: Text(
+                    intitulewallet ?? 'R.A.S',
+                    style: const TextStyle(
+                        color: Color.fromARGB(255, 240, 239, 239)),
                   ),
                 ),
               ),
@@ -94,12 +136,36 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                     SizedBox(
                       width: screen_width * .06,
                     ),
-                    const Text(
-                      '100000.00 XAF',
-                      style: TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
+                    BlocListener<BlocBloc, BlocState>(
+                      listener: (context, state) {
+                        if (state is RegisterLoadingState) {
+                          const CircularProgressIndicator();
+                        }
+                        // Vérifiez si le `state` est `RegisterSuccessState` et que `register` n'est pas null
+                        if (state is RegisterSuccessState) {
+                          final register = state.register;
+                          String? soldewallet = register?.body?.soldewallet;
+
+                          // Affichez le texte basé sur la valeur de `register.head`
+                          register != null && register.head == false
+                              ? solde = 'Erreur de solde'
+                              : solde = soldewallet;
+                        }
+                      },
+                      child: BlocBuilder<BlocBloc, BlocState>(
+                        builder: (context, state) {
+                          // Retourne un texte par défaut si le `state` n'est ni `RegisterLoadingState` ni `RegisterSuccessState`
+                          return solde == ''
+                              ? const CircularProgressIndicator()
+                              : Text(
+                                  solde ?? "00.00",
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                );
+                        },
                       ),
                     ),
                     SizedBox(
@@ -112,23 +178,22 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
               //Recevoir
               Positioned(
                 top: screen_height * .12,
-                left: screen_width*.75,
+                left: screen_width * .75,
                 child: GestureDetector(
                   onTap: () {
-                          Get.to(() => const Recevoir());
-                        },
+                    Get.to(() => const Recevoir());
+                  },
                   child: Column(
                     //crossAxisAlignment: CrossAxisAlignment.start,
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: [
-                        
-                        Image.asset(
-                          height: icontaille,
-                          width: icontaille,
-                          'images/qrcode.png',
-                          fit: BoxFit.cover,
-                        ),
-                      
+                      Image.asset(
+                        height: icontaille,
+                        width: icontaille,
+                        'images/qrcode.png',
+                        fit: BoxFit.cover,
+                      ),
+
                       // SizedBox(
                       //   height: screen_height * .0001,
                       // ),

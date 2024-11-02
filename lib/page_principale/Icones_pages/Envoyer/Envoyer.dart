@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_bloc.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_event.dart';
+import 'package:wiso_cash/features/bloc/presentation/bloc/bloc_state.dart';
 import 'package:wiso_cash/page_principale/Nav_Bar_composants/Nav_Bar.dart';
 
 class Elements_Icones extends StatefulWidget {
@@ -9,11 +14,11 @@ class Elements_Icones extends StatefulWidget {
   State<Elements_Icones> createState() => _Elements_IconesState();
 }
 
-TextEditingController controle = TextEditingController();
-TextEditingController controles = TextEditingController();
-String control2 = controle.text;
-
 class _Elements_IconesState extends State<Elements_Icones> {
+  TextEditingController montant_controle = TextEditingController();
+  TextEditingController num_controle = TextEditingController();
+  TextEditingController pin_controle = TextEditingController();
+//String control2 = controle.text;
   final List<String> mode_transfert = [
     'Mobile Money',
     'Wiso Cash',
@@ -24,16 +29,53 @@ class _Elements_IconesState extends State<Elements_Icones> {
   final formKey2 = GlobalKey<FormState>();
   IconData vise = Icons.visibility_off;
   //bool _obscure = true;
+  String? codewallet = '';
 
   String current_option = '';
 
   @override
   void initState() {
     current_option = mode_transfert[0];
+    loadCodeconn();
     super.initState();
   }
 
+  final Map<String, String> data = {
+    'codeserv': 'effectuerunenvoiemobilemoney',
+    'montant': '',
+    'numtel': '',
+    'descr': 'RAS',
+    'codewallet': '',
+    'pin': ''
+  };
+  final Map<String, String> data2 = {
+    'codeserv': 'effectuerunenvoiewallet',
+    'montant': '',
+    'numcptwallet': '',
+    'descr': 'RAS',
+    'codewallet': '',
+    'pin': ''
+  };
+  String url = "iwallet.php";
+  bool reda = false;
+
+  Future<void> loadCodeconn() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      codewallet = prefs.getString('codewallet');
+      data2['codewallet'] = codewallet ?? '';
+      data['codewallet'] = codewallet ?? '';
+    });
+  }
   //late String current_option = mode_transfert[0];
+
+  @override
+  void dispose() {
+    super.dispose();
+    montant_controle.dispose();
+    num_controle.dispose();
+    pin_controle.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -83,7 +125,7 @@ class _Elements_IconesState extends State<Elements_Icones> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
-                controller: controles,
+                controller: num_controle,
                 cursorColor: Theme.of(context).primaryColor,
                 keyboardType: TextInputType.phone,
                 decoration: InputDecoration(
@@ -100,10 +142,22 @@ class _Elements_IconesState extends State<Elements_Icones> {
                   labelText: 'Entrez le numéro',
                 ),
                 validator: (value) {
-                  if (value!.isEmpty ||
-                      !RegExp(r'^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\S\./0-9]+$')
-                          .hasMatch(value)) {
+                  if (value!.isEmpty) {
                     return 'Veuillez entrer un numero correct';
+                  } else if (current_option == 'Mobile Wallet' &&
+                      !RegExp(r'^\+237\d{9,11}#\d{4}$').hasMatch(value)) {
+                    return 'Numéro Mobile Wallet incorrect';
+                  } else if (current_option == 'Mobile Wallet' &&
+                      RegExp(r'^\+237\d{9,11}#\d{4}$').hasMatch(value)) {
+                    data2['numcptwallet'] = num_controle.text;
+                    return null;
+                  } else if (current_option == 'Mobile Money' &&
+                      !RegExp(r'^\+2376\d{8}$').hasMatch(value)) {
+                    return 'Numéro Mobile Money incorrect';
+                  } else if (current_option == 'Mobile Money' &&
+                      RegExp(r'^\+2376\d{8}$').hasMatch(value)) {
+                    data['numtel'] = num_controle.text;
+                    return null;
                   } else {
                     return null;
                   }
@@ -120,7 +174,7 @@ class _Elements_IconesState extends State<Elements_Icones> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: TextFormField(
-                controller: controle,
+                controller: montant_controle,
                 cursorColor: Theme.of(context).primaryColor,
                 keyboardType: TextInputType.number,
                 decoration: InputDecoration(
@@ -138,9 +192,12 @@ class _Elements_IconesState extends State<Elements_Icones> {
                 ),
                 validator: (value) {
                   if (value!.isEmpty ||
-                      !RegExp(r'^[0-9]{4,10}$').hasMatch(value)) {
+                      !RegExp(r'^(?:[1-9]\d{0,4}|[1-4]\d{5}|500000)$')
+                          .hasMatch(value)) {
                     return 'Veuillez entrer un montant correct';
                   } else {
+                    data['montant'] = montant_controle.text;
+                    data2['montant'] = montant_controle.text;
                     return null;
                   }
                 },
@@ -178,21 +235,20 @@ class _Elements_IconesState extends State<Elements_Icones> {
                             children: [
                               //textes de confirmation
                               Text(
-                                  // ignore: prefer_interpolation_to_compose_strings
-                                  'Vous ête sur le point d\'éffectuer un envoie de ' +
-                                      controle.text +
-                                      ' au numéro ' +
-                                      controles.text,
-                                      style: const TextStyle(color: Colors.black),
-                                      
-                                      ),
+                                // ignore: prefer_interpolation_to_compose_strings
+                                'Vous ête sur le point d\'éffectuer un envoie de ' +
+                                    montant_controle.text +
+                                    ' au numéro ' +
+                                    num_controle.text,
+                                style: const TextStyle(color: Colors.black),
+                              ),
                               const SizedBox(
                                 height: 30,
                               ),
                               const Text(
-                                  'Saisissez votre code PIN pour valider',
-                                  style: TextStyle(color: Colors.black),
-                                  ),
+                                'Saisissez votre code PIN pour valider',
+                                style: TextStyle(color: Colors.black),
+                              ),
 
                               //sizebox
                               const SizedBox(
@@ -204,9 +260,11 @@ class _Elements_IconesState extends State<Elements_Icones> {
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 20),
                                 child: TextFormField(
+                                  controller: pin_controle,
                                   keyboardType: TextInputType.number,
                                   decoration: InputDecoration(
-                                    labelStyle: Theme.of(context).textTheme.bodyMedium,
+                                    labelStyle:
+                                        Theme.of(context).textTheme.bodyMedium,
                                     focusColor: Theme.of(context).primaryColor,
                                     border: UnderlineInputBorder(
                                         borderSide: BorderSide(
@@ -224,6 +282,8 @@ class _Elements_IconesState extends State<Elements_Icones> {
                                             .hasMatch(value)) {
                                       return 'Entrer un code correct';
                                     } else {
+                                      data['pin'] = pin_controle.text;
+                                      data2['pin'] = pin_controle.text;
                                       return null;
                                     }
                                   },
@@ -237,15 +297,26 @@ class _Elements_IconesState extends State<Elements_Icones> {
                         ElevatedButton(
                           onPressed: () {
                             if (formKey2.currentState!.validate()) {
-                              Get.offAll(() => const acceuil(),
-                                  transition: Transition.fade,
-                                  duration: const Duration(seconds: 3));
-                                  //const SnackBar(content: Text( 'validé avec succès'));
-                              setState(() {
-                                controle.text = '';
-                                controles.text = '';
-                                current_option = mode_transfert[0];
-                              });
+                              //................................................'Mobile Wallet'...............................
+                              if (current_option == 'Mobile Wallet' &&
+                                  RegExp(r'^\+237\d{9,11}#\d{4}$')
+                                      .hasMatch(num_controle.text)) {
+                                context.read<BlocBloc>().add(
+                                    registerDataEvent(data: data2, url: url));
+                              }
+
+                              //................................................'Mobile Money'...............................
+                              if (current_option == 'Mobile Money' &&
+                                  RegExp(r'^\+2376\d{8}$')
+                                      .hasMatch(num_controle.text)) {
+                                context.read<BlocBloc>().add(
+                                    registerDataEvent(data: data, url: url));
+                              }
+                              // setState(() {
+                              //   montant_controle.text = '';
+                              //   num_controle.text = '';
+                              //   current_option = mode_transfert[0];
+                              // });
                             }
                           },
                           child: Text(
@@ -269,6 +340,7 @@ class _Elements_IconesState extends State<Elements_Icones> {
                       ],
                     ),
                   );
+
                   // Get.offAll(() => const acceuil(),
                   // transition: Transition.size,
                   // duration: Durations.medium2,
@@ -314,34 +386,113 @@ class _Elements_IconesState extends State<Elements_Icones> {
             onPressed: () {
               Get.back();
               setState(() {
-                controle.text = '';
-                controles.text = '';
+                montant_controle.text = '';
+                num_controle.text = '';
                 current_option = mode_transfert[0];
               });
             },
             icon: const Icon(Icons.arrow_back)),
-            actions: [
+        actions: [
           IconButton(
-            onPressed: (){
-              Get.offAll(() => const acceuil());
-              setState(() {
-                controle.text = '';
-                controles.text = '';
-                current_option = mode_transfert[0];
-              });
-            },
-            icon: const Icon(Icons.cancel, size: 35,))
+              onPressed: () {
+                Get.offAll(() => const acceuil());
+                setState(() {
+                  montant_controle.text = '';
+                  num_controle.text = '';
+                  current_option = mode_transfert[0];
+                });
+              },
+              icon: const Icon(
+                Icons.cancel,
+                size: 35,
+              ))
         ],
       ),
       body: SingleChildScrollView(
-        child: Center(
-          child: Column(
-            // mainAxisAlignment: MainAxisAlignment.center,
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            children: children,
+          child: BlocListener<BlocBloc, BlocState>(
+        listener: (context, state) {
+          if (state is RegisterSuccessState) {
+            // Accédez à `head` et `body` en toute sécurité après avoir vérifié le type de `state`
+            final register = (state).register;
+            if (register != null) {
+              if (register.head == false) {
+                // Affiche une `SnackBar` si `head` est `false`
+                Get.back();
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    backgroundColor: const Color.fromARGB(255, 136, 13, 4),
+                    content: Text(
+                      register.body?.msg ?? 'Erreur inconnue',
+                      style: const TextStyle(color: Colors.white),
+                    ),
+                  ),
+                );
+              } else {
+                // Affiche un dialogue si `head` est `true`
+                showDialog(
+                  barrierColor: Theme.of(context).primaryColor.withOpacity(.2),
+                  context: context,
+                  builder: (ctx) => AlertDialog(
+                    title: Text(
+                      'Félicitations',
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    content: Form(
+                      key: formKey2,
+                      child: Container(
+                        alignment: Alignment.center,
+                        height: screen_height * .35,
+                        child: const Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              //textes de confirmation
+                              Text(
+                                // ignore: prefer_interpolation_to_compose_strings
+                                'Opération réussie',
+                                style: TextStyle(color: Colors.green),
+                              ),
+                            ]),
+                      ),
+                    ),
+                    actions: <Widget>[
+                      ElevatedButton(
+                        onPressed: () {
+                          reda = true;
+                          if (reda == true) {
+                            Get.offAll(
+                              () => const acceuil(),
+                              //transition: Transition.size,
+                              duration: Durations.medium2,
+                            );
+                          }
+                        },
+                        child: Text(
+                          'OK',
+                          style: TextStyle(
+                            color: Theme.of(context).primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              }
+            }
+          }
+        },
+        child: BlocBuilder<BlocBloc, BlocState>(
+          builder: (context, state) => Center(
+            child: Column(
+              // mainAxisAlignment: MainAxisAlignment.center,
+              // crossAxisAlignment: CrossAxisAlignment.center,
+              children: children,
+            ),
           ),
         ),
-      ),
+      )),
 
       // bottomNavigationBar: const Plage_Accueil(),
     );
