@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_barcode_scanner/flutter_barcode_scanner.dart';
 import 'package:get/get.dart';
 import 'package:wiso_cash/page_principale/index.dart';
 //import 'package:simple_barcode_scanner/simple_barcode_scanner.dart';
@@ -35,16 +34,18 @@ class _Scanner_codeState extends State<Scanner_code> {
               Get.offAll(() => const acceuil());
             },
             icon: const Icon(Icons.arrow_back)),
-
-            actions: [
+        actions: [
           IconButton(
-            onPressed: (){
-              Get.offAll(() => const acceuil());
-              setState(() {
-                _BarcodeResult = '';
-              });
-            },
-            icon: const Icon(Icons.cancel, size: 35,))
+              onPressed: () {
+                Get.offAll(() => const acceuil());
+                setState(() {
+                  _BarcodeResult = '';
+                });
+              },
+              icon: const Icon(
+                Icons.cancel,
+                size: 35,
+              ))
         ],
       ),
       body: SafeArea(
@@ -85,12 +86,12 @@ class _Scanner_codeState extends State<Scanner_code> {
                         },
                       ),
                     ),
-              
+
                     //sizedbox
                     const SizedBox(
                       height: 50,
                     ),
-              
+
                     //bouton pour scanner
                     InkWell(
                       onTap: () {
@@ -121,12 +122,12 @@ class _Scanner_codeState extends State<Scanner_code> {
                         ),
                       ),
                     ),
-              
+
                     //sizedbox
                     const SizedBox(
                       height: 40,
                     ),
-              
+
                     //texte
                     Text(
                       textAlign: TextAlign.center,
@@ -139,8 +140,6 @@ class _Scanner_codeState extends State<Scanner_code> {
                 ),
               ),
             ),
-
-            
           ],
         ),
       ),
@@ -149,19 +148,19 @@ class _Scanner_codeState extends State<Scanner_code> {
 
   // ignore: non_constant_identifier_names
   void QRCodeScan() async {
-    String QRCode;
+    //String QRCode;
     try {
-      QRCode = await FlutterBarcodeScanner.scanBarcode(
-          "#ff6666", // Scan line color
-          "Cancel", // Cancel button text
-          true, // Whether to use the rear camera
-          ScanMode.QR);
+      // QRCode = await FlutterBarcodeScanner.scanBarcode(
+      //     "#ff6666", // Scan line color
+      //     "Cancel", // Cancel button text
+      //     true, // Whether to use the rear camera
+      //     ScanMode.QR);
     } on PlatformException {
-      QRCode = 'Echec PlatformException';
+      //QRCode = 'Echec PlatformException';
     }
 
     setState(() {
-      _BarcodeResult = QRCode;
+      //_BarcodeResult = QRCode;
     });
   }
 }
