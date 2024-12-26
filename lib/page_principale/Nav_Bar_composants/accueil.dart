@@ -20,6 +20,9 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
   String? intitulewallet = '';
   String? codewallet = '';
   String? solde = '';
+  //String? monSolde = '';
+  String? NewSolde = '';
+  String? monSolde = Get.arguments;
 
   final Map<String, String> data = {
     'codeserv': 'consulterunwallet',
@@ -42,6 +45,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
       intitulewallet = prefs.getString('intitulewallet');
       codewallet = prefs.getString('codewallet');
       data['codewallet'] = codewallet ?? '';
+      //monSolde = prefs.getString('soldewallet');
     });
   }
 
@@ -137,19 +141,36 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                       width: screen_width * .06,
                     ),
                     BlocListener<BlocBloc, BlocState>(
-                      listener: (context, state) {
+                      listener: (context, state) async {
                         if (state is RegisterLoadingState) {
                           const CircularProgressIndicator();
                         }
                         // Vérifiez si le `state` est `RegisterSuccessState` et que `register` n'est pas null
-                        if (state is RegisterSuccessState) {
-                          final register = state.register;
-                          String? soldewallet = register?.body?.soldewallet;
+                        if (state is WebSocketMessageReceivedState) {
+                          final prefs = await SharedPreferences.getInstance();
 
-                          // Affichez le texte basé sur la valeur de `register.head`
-                          register != null && register.head == false
-                              ? solde = 'Erreur de solde'
-                              : solde = soldewallet;
+                          print(
+                              'je suis à L\'ecoute;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;');
+                          final message = state.message;
+                          NewSolde = message?.body.transaction.nouveausolde;
+                          final nouveausolde =
+                              message?.body.transaction.nouveausolde;
+                          await prefs.setString('nouveausolde', nouveausolde!);
+
+                          setState(() {
+                            monSolde = prefs.getString('nouveausolde');
+                            solde = prefs.getString('nouveausolde');
+                          });
+                          print(message);
+
+                          // Affichez le texte basé sur la valeur de `message.head`
+                          message != null && message.head == false
+                              ? solde = monSolde
+                              : solde = message?.body.transaction.nouveausolde;
+                        }
+
+                        if (state is RegisterSuccessState) {
+                          solde = state.register?.body?.soldewallet;
                         }
                       },
                       child: BlocBuilder<BlocBloc, BlocState>(
@@ -158,7 +179,7 @@ class _Plage_AccueilState extends State<Plage_Accueil> {
                           return solde == ''
                               ? const CircularProgressIndicator()
                               : Text(
-                                  solde ?? "00.00",
+                                  solde ?? 'RAS#',
                                   style: const TextStyle(
                                     fontSize: 20,
                                     color: Colors.white,

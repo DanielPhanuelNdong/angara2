@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:wiso_cash/page_principale/index.dart';
 
 class acceuil extends StatefulWidget {
@@ -15,6 +16,11 @@ class _acceuilState extends State<acceuil> {
     const Reglages()
   ];
 
+  final Map<String, String> data = {
+    'codeserv': 'identifierunutilisateur',
+    'codeconn': '',
+  };
+
   int current_index = 0;
   final keyButtom = GlobalKey<NavigatorState>();
 
@@ -23,7 +29,18 @@ class _acceuilState extends State<acceuil> {
   @override
   void initState() {
     controle = PageController(initialPage: current_index);
+
+    //loadCodeconn();
     super.initState();
+  }
+
+  Future<void> loadCodeconn() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      final codeconn = prefs.getString('codeconn');
+      data['codeconn'] = codeconn ?? '';
+      //context.read<BlocBloc>().add(SendMessageEvent(message: data));
+    });
   }
 
   @override
@@ -66,7 +83,6 @@ class _acceuilState extends State<acceuil> {
             });
           },
         ),
-        //elements[current_index],
       ),
 
       //barre de navigation

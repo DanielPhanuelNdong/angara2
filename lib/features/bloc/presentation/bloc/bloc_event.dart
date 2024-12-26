@@ -17,30 +17,35 @@ class registerDataEvent extends BlocEvent {
   });
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [data, url];
 }
 
-// ignore: must_be_immutable, camel_case_types
-class envoieWalletEvent extends BlocEvent {
-  var data;
-  String url;
-  envoieWalletEvent({
-    required this.data,
-    required this.url,
-  });
+// bloc_event.dart
+abstract class WebSocketEvent extends Equatable {
+  const WebSocketEvent();
+  @override
+  List<Object> get props => [];
+}
+
+// ignore: must_be_immutable
+class SendMessageEvent extends BlocEvent {
+  // ignore: prefer_typing_uninitialized_variables
+  var message;
+  SendMessageEvent({required this.message});
 
   @override
-  List<Object> get props => [data];
+  List<Object> get props => [message];
 }
-// ignore: must_be_immutable, camel_case_types
-// class loginDataEvent extends BlocEvent {
-//   var data;
-//   String url;
-//   loginDataEvent({
-//     required this.data,
-//     required this.url,
-//   });
 
-//   @override
-//   List<Object> get props => [data];
-// }
+// ignore: must_be_immutable
+class ReceiveMessageEvent extends BlocEvent {
+  // ignore: prefer_typing_uninitialized_variables
+  var message;
+  ReceiveMessageEvent({required this.message});
+
+  @override
+  List<Object> get props => [message];
+}
+
+// ignore: must_be_immutable
+class DisposeEvent extends BlocEvent {}

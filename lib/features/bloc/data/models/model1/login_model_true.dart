@@ -23,6 +23,11 @@ class RegisterModelTrue {
     this.body,
   });
 
+  @override
+  String toString() {
+    return 'RegisterModelTrue(code: $code, head: $head, type: $type, body: $body)';
+  }
+
   factory RegisterModelTrue.fromJson(Map<String, dynamic> json) =>
       RegisterModelTrue(
         code: json["code"],
@@ -39,7 +44,13 @@ class RegisterModelTrue {
       };
 }
 
+// @override
+// String toString() {
+//   return 'RegisterModelTrue(code: $code, head: $head, type: $type, body: $body)';
+// }
+
 class Body {
+  String? codeserv;
   String? codeenreg;
   String? otpenreg;
   String? mail;
@@ -66,6 +77,7 @@ class Body {
   Transaction? transactiondebit;
 
   Body({
+    this.codeserv,
     this.codeenreg,
     this.otpenreg,
     this.mail,
@@ -92,7 +104,45 @@ class Body {
     this.transactiondebit,
   });
 
+  // @override
+  // String toString() {
+  //   return 'Body(codeserv: $codeserv, codeenreg: $codeenreg, otpenreg: $otpenreg, mail: $mail, msg: $msg)';
+  // }
+
+  @override
+  String toString() {
+    return '''
+Body(
+  codeserv: $codeserv,
+  codeenreg: $codeenreg,
+  otpenreg: $otpenreg,
+  mail: $mail,
+  msg: $msg,
+  codewallet: $codewallet,
+  intitulewallet: $intitulewallet,
+  soldewallet: $soldewallet,
+  statutwallet: $statutwallet,
+  codeclient: $codeclient,
+  codeutilis: $codeutilis,
+  codetrans: $codetrans,
+  statut: $statut,
+  montantrans: $montantrans,
+  statutrans: $statutrans,
+  nomcommis: $nomcommis,
+  tauxcommis: $tauxcommis,
+  typepart: $typepart,
+  numtelmomo: $numtelmomo,
+  intitulewalletpart: $intitulewalletpart,
+  connexion: $connexion,
+  client: $client,
+  wallet: $wallet,
+  transactioncredit: $transactioncredit,
+  transactiondebit: $transactiondebit
+)''';
+  }
+
   factory Body.fromJson(Map<String, dynamic> json) => Body(
+        codeserv: json["codeserv"],
         codeenreg: json["codeenreg"],
         otpenreg: json["otpenreg"],
         mail: json["mail"],
@@ -126,6 +176,7 @@ class Body {
       );
 
   Map<String, dynamic> toJson() => {
+        "codeserv": codeserv,
         "codeenreg": codeenreg,
         "otpenreg": otpenreg,
         "mail": mail,
@@ -181,6 +232,30 @@ class Client {
     this.logincompte,
     this.statutcompte,
   });
+
+  // @override
+  // String toString() {
+  //   return 'Client(codeclient: $codeclient, nomsutilis: $nomsutilis, prenomsutilis: $prenomsutilis, numtelutilis: $numtelutilis)';
+  // }
+
+  @override
+  String toString() {
+    return '''
+Client(
+  codeclient: $codeclient,
+  pinclient: $pinclient,
+  codeutilis: $codeutilis,
+  nomsutilis: $nomsutilis,
+  prenomsutilis: $prenomsutilis,
+  numtelutilis: $numtelutilis,
+  emailutilis: $emailutilis,
+  codenreg: $codenreg,
+  codecompte: $codecompte,
+  nomcompte: $nomcompte,
+  logincompte: $logincompte,
+  statutcompte: $statutcompte
+)''';
+  }
 
   factory Client.fromJson(Map<String, dynamic> json) => Client(
         codeclient: json["codeclient"],
@@ -248,6 +323,28 @@ class Connexion {
     this.libesptrav,
   });
 
+  @override
+  String toString() {
+    return '''
+Connexion(
+  codeconn: $codeconn,
+  datedebconn: $datedebconn,
+  datefinconn: $datefinconn,
+  nomtermconn: $nomtermconn,
+  adripconn: $adripconn,
+  adrmaconn: $adrmaconn,
+  statutconn: $statutconn,
+  codecompte: $codecompte,
+  nomcompte: $nomcompte,
+  logincompte: $logincompte,
+  statutcompte: $statutcompte,
+  codesptrav: $codesptrav,
+  nomesptrav: $nomesptrav,
+  lienesptrav: $lienesptrav,
+  libesptrav: $libesptrav
+)''';
+  }
+
   factory Connexion.fromJson(Map<String, dynamic> json) => Connexion(
         codeconn: json["codeconn"],
         datedebconn: DateTime.parse(json["datedebconn"]),
@@ -302,6 +399,19 @@ class Wallet {
     this.codeutilis,
   });
 
+  @override
+  String toString() {
+    return '''
+Wallet(
+  codewallet: $codewallet,
+  intitulewallet: $intitulewallet,
+  soldewallet: $soldewallet,
+  statutwallet: $statutwallet,
+  codeclient: $codeclient,
+  codeutilis: $codeutilis
+)''';
+  }
+
   factory Wallet.fromJson(Map<String, dynamic> json) => Wallet(
         codewallet: json["codewallet"],
         intitulewallet: json["intitulewallet"],
@@ -353,6 +463,27 @@ class Transaction {
     this.total,
     this.nouveausolde,
   });
+
+  @override
+  String toString() {
+    return '''
+Transaction(
+  codetrans: $codetrans,
+  statut: $statut,
+  soldewallet: $soldewallet,
+  codeclient: $codeclient,
+  montantrans: $montantrans,
+  statutrans: $statutrans,
+  nomcommis: $nomcommis,
+  tauxcommis: $tauxcommis,
+  typepart: $typepart,
+  numtelmomo: $numtelmomo,
+  intitulewalletpart: $intitulewalletpart,
+  frais: $frais,
+  total: $total,
+  nouveausolde: $nouveausolde
+)''';
+  }
 
   factory Transaction.fromJson(Map<String, dynamic> json) => Transaction(
         codetrans: json["codetrans"],

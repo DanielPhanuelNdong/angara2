@@ -61,7 +61,8 @@ class _Sign_upState extends State<Sign_up> {
             child: RepositoryProvider(
           create: (context) => DataRepository(dataProvider: DataProvider()),
           child: BlocProvider(
-            create: (context) => BlocBloc(context.read<DataRepository>()),
+            create: (context) => BlocBloc(context.read<DataRepository>(),
+                context.read<WebSocketService>()),
             child:
                 BlocListener<BlocBloc, BlocState>(listener: (context, state) {
               if (state is RegisterSuccessState) {

@@ -1,8 +1,9 @@
 import 'package:wiso_cash/features/bloc/data/datasources/register_provider.dart';
-import 'package:wiso_cash/features/bloc/data/models/index.dart';
+import 'package:wiso_cash/features/bloc/data/models/model1/index.dart';
 
 abstract class repository {
   Future<RegisterModelTrue?> registerUser(var data, String url);
+  //Future<void> socket(var data);
 }
 
 class DataRepository extends repository {
@@ -19,9 +20,9 @@ class DataRepository extends repository {
     return register;
   }
 
-  Future<RegisterModelTrue?> envoieWallet(var data, String url) {
-    final register = dataProvider.envoieWallet(data, url);
+  Future<RegisterModelTrue?> socket(var dat) async {
+    final rep = await dataProvider.socket(dat);
 
-    return register;
+    return rep;
   }
 }
